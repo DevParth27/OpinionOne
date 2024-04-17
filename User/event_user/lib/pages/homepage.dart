@@ -1,3 +1,4 @@
+import 'package:event_user/pages/settingsPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -592,11 +593,17 @@ class HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: size.width * .024),
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              setState(
-                () {
+              if (index == 3) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingPage()),
+                );
+              } else {
+                setState(() {
                   currentIndex = index;
-                },
-              );
+                });
+              }
             },
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
@@ -636,11 +643,18 @@ class HomePageState extends State<HomePage> {
     );
   }
 
+  // final List<Widget> _pages = [
+  //   const HomePage(),
+  //   const HomePage(),
+  //   const HomePage(),
+  //   const SettingPage(),
+  // ];
+
   List<IconData> listOfIcons = [
     Icons.home_rounded,
     Icons.calendar_month_rounded,
     Icons.bookmark_rounded,
-    Icons.person_rounded,
+    Icons.settings_rounded,
   ];
 }
 
