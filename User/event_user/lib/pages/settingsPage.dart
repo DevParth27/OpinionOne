@@ -1,25 +1,42 @@
+import 'package:event_user/auth/login_user.dart';
 import 'package:flutter/material.dart';
 
-// ignore: camel_case_types
 class SettingPage extends StatelessWidget {
   const SettingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Settings'),
+        toolbarHeight: 40,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: IconButton(
+          icon:
+              const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          onPressed: () {
+            // Navigate to home page
+            Navigator.pop(
+                context); // Example: Navigating back to the previous screen
+          },
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
         children: [
           _buildSectionHeader('Account Settings'),
           _buildSettingsItem(Icons.person, 'Edit Profile', () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => AddProfileScreen()));
+            // Implement edit profile functionality
           }),
-          _buildSettingsItem(Icons.lock, 'Change Password', () {
-            // Implement change password functionality
-          }),
+          // _buildSettingsItem(Icons.lock, 'Change Password', () {
+          //   // Implement change password functionality
+          // }),
           _buildSettingsItem(Icons.card_giftcard, 'Upgrade Membership', () {
             // Implement upgrade membership functionality
           }),
@@ -27,9 +44,9 @@ class SettingPage extends StatelessWidget {
           _buildSettingsItem(Icons.notifications, 'Notifications', () {
             // Implement notification settings
           }),
-          _buildSettingsItem(Icons.language, 'Language', () {
-            // Implement language selection
-          }),
+          // _buildSettingsItem(Icons.language, 'Language', () {
+          //   // Implement language selection
+          // }),
           _buildSettingsItem(Icons.color_lens, 'Theme', () {
             // Implement theme selection
           }),
@@ -44,15 +61,25 @@ class SettingPage extends StatelessWidget {
           _buildSettingsItem(Icons.info, 'About Us', () {
             // Implement about us screen
           }),
-          _buildSettingsItem(Icons.star, 'Rate App', () {
-            // Implement rate app functionality
-          }),
+          // _buildSettingsItem(Icons.star, 'Rate App', () {
+          //   // Implement rate app functionality
+          // }),
           _buildSettingsItem(Icons.feedback, 'Send Feedback', () {
             // Implement send feedback functionality
           }),
-          _buildSettingsItem(Icons.exit_to_app, 'Logout', () {
-            // Implement logout functionality
-          }),
+          //    _buildSettingsItem(Icons.exit_to_app, 'Logout', () {
+          _buildLogoutItem(context),
+          //    }),
+          const SizedBox(height: 20),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Copyright © 2024. All rights reserved.',
+                style: TextStyle(color: Colors.grey, fontSize: 16),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -72,32 +99,64 @@ class SettingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsItem(IconData icon, String title, VoidCallback onTap) {
+  Widget _buildLogoutItem(BuildContext context) {
     return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Row(
+      onTap: () {
+        // Show logout confirmation dialog
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Logout :('),
+              content: const Text('Are you sure you want to logout?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                    ); // Close the dialog
+                  },
+                  child: const Text('Logout'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
+        ),
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
                 Icon(
-                  icon,
+                  Icons.exit_to_app,
                   size: 28.0,
-                  color: Colors.black54,
+                  color: Colors.white,
                 ),
-                const SizedBox(width: 16.0),
+                SizedBox(width: 16.0),
                 Text(
-                  title,
-                  style: const TextStyle(
+                  'Logout',
+                  style: TextStyle(
                     fontSize: 16.0,
-                    color: Colors.black87,
+                    color: Colors.white,
                   ),
                 ),
               ],
             ),
-            const Icon(
+            Icon(
               Icons.arrow_forward_ios,
               size: 20.0,
               color: Colors.grey,
@@ -107,4 +166,43 @@ class SettingPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildSettingsItem(IconData icon, String title, VoidCallback onTap) {
+  return InkWell(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+      decoration: BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: 28.0,
+                color: Colors.white,
+              ),
+              const SizedBox(width: 16.0),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          const Icon(
+            Icons.arrow_forward_ios,
+            size: 20.0,
+            color: Colors.grey,
+          ),
+        ],
+      ),
+    ),
+  );
 }
