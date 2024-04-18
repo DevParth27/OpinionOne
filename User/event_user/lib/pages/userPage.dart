@@ -40,9 +40,17 @@ class _UserPageState extends State<UserPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(height: 75),
+              const SizedBox(height: 40),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.white,
+                ),
+                child: const Icon(Icons.person, size: 100),
+              ),
+              const SizedBox(height: 30),
               const Text(
-                'User Page',
+                'ABC',
                 style: TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 50),
