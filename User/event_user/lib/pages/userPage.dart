@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:event_user/auth/login_user.dart';
+import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatefulWidget {
@@ -77,7 +78,12 @@ class _UserPageState extends State<UserPage> {
 
                     _buildSettingsItem(
                         Icons.card_giftcard, 'Upgrade Membership', () {
-                      // Implement upgrade membership functionality
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const UpgradeMembershipScreen()),
+                      );
                     }),
                     _buildSectionHeader('App Settings'),
                     _buildSettingsItem(Icons.notifications, 'Notifications',
@@ -169,13 +175,29 @@ Widget _buildSettingsItem(IconData icon, String title, VoidCallback onTap) {
 
 Widget _buildSectionHeader(String title) {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 12.0),
-    child: Text(
-      title,
-      style: const TextStyle(
-        fontSize: 18.0,
-        fontWeight: FontWeight.bold,
-        color: Colors.red,
+    padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      width: double.infinity,
+      color: Colors.black,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.red,
+            ),
+          ),
+          const SizedBox(
+              height: 8.0), // Adjust the space between title and line
+          Container(
+            height: 1.5,
+            color: Colors.grey[400],
+          ),
+        ],
       ),
     ),
   );
