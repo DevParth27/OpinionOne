@@ -41,7 +41,7 @@ class LogoutItem extends StatelessWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(vertical: 9.0, horizontal: 6.5),
         decoration: BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
         ),

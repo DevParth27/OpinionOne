@@ -6,9 +6,25 @@ class UpgradeMembershipScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Upgrade Membership'),
-        automaticallyImplyLeading: true,
+        toolbarHeight: 70,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        leading: IconButton(
+          icon:
+              const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+          onPressed: () {
+            // Navigate to home page
+            Navigator.pop(
+                context); // Example: Navigating back to the previous screen
+          },
+        ),
+        backgroundColor: Colors.black,
+        title: const Text(
+          'Upgrade Membership',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: const SingleChildScrollView(
         child: Center(
@@ -67,6 +83,7 @@ class MembershipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color.fromARGB(255, 20, 20, 20),
       margin: const EdgeInsets.symmetric(horizontal: 20),
       elevation: 4,
       child: Padding(
@@ -77,6 +94,7 @@ class MembershipCard extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
+                color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -86,7 +104,7 @@ class MembershipCard extends StatelessWidget {
               price,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[700],
+                color: Colors.grey[300],
               ),
             ),
             const SizedBox(height: 10),
@@ -107,7 +125,7 @@ class MembershipCard extends StatelessWidget {
                               feature,
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.grey[600],
+                                color: Colors.grey[400],
                               ),
                             ),
                           ],
@@ -116,12 +134,26 @@ class MembershipCard extends StatelessWidget {
                   .toList(),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                // Add your logic for upgrading membership here
-              },
-              child: const Text('Upgrade'),
-            ),
+            Container(
+              height: 40,
+              width: 90,
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 102, 77, 177),
+                  borderRadius: BorderRadius.circular(50)),
+              child: const Padding(
+                padding: EdgeInsets.all(5.0),
+                child: Center(
+                  child: Text(
+                    'Upgrade',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
