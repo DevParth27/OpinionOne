@@ -10,40 +10,42 @@ class UpgradeMembershipScreen extends StatelessWidget {
         title: const Text('Upgrade Membership'),
         automaticallyImplyLeading: true,
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MembershipCard(
-              title: 'Basic Membership',
-              price: '\$9.99/month',
-              features: [
-                'Access to basic feature 1',
-                'Access to basic feature 2',
-                'Limited support',
-              ],
-            ),
-            SizedBox(height: 20),
-            MembershipCard(
-              title: 'Standard Membership',
-              price: '\$19.99/month',
-              features: [
-                'Access to advanced features',
-                'Priority support',
-                'Additional storage space',
-              ],
-            ),
-            SizedBox(height: 20),
-            MembershipCard(
-              title: 'Premium Membership',
-              price: '\$29.99/month',
-              features: [
-                'Access to premium features',
-                '24/7 premium support',
-                'Unlimited storage space',
-              ],
-            ),
-          ],
+      body: const SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MembershipCard(
+                title: 'Basic Membership',
+                price: '\$9.99/month',
+                features: [
+                  'Access to basic feature 1',
+                  'Access to basic feature 2',
+                  'Limited support',
+                ],
+              ),
+              SizedBox(height: 20),
+              MembershipCard(
+                title: 'Standard Membership',
+                price: '\$19.99/month',
+                features: [
+                  'Access to advanced features',
+                  'Priority support',
+                  'Additional storage space',
+                ],
+              ),
+              SizedBox(height: 20),
+              MembershipCard(
+                title: 'Premium Membership',
+                price: '\$29.99/month',
+                features: [
+                  'Access to premium features',
+                  '24/7 premium support',
+                  'Unlimited storage space',
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

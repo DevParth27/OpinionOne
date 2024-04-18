@@ -1,6 +1,7 @@
-// ignore_for_file: file_names
-
-import 'package:event_user/auth/login_user.dart';
+// user_page.dart
+import 'package:event_user/models/logout_item.dart';
+import 'package:event_user/models/section_header.dart';
+import 'package:event_user/models/settings_item.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -53,9 +54,10 @@ class _UserPageState extends State<UserPage> {
               const Text(
                 'ABC',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w200),
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w200,
+                ),
               ),
               const SizedBox(height: 25),
               Divider(
@@ -67,52 +69,78 @@ class _UserPageState extends State<UserPage> {
               ),
               const SizedBox(height: 5),
               Expanded(
+                flex: 1,
                 child: ListView(
                   padding: const EdgeInsets.symmetric(
                       vertical: 20.0, horizontal: 16.0),
                   children: [
-                    _buildSectionHeader('Account Settings'),
-                    _buildSettingsItem(Icons.person, 'Edit Profile', () {
-                      // Implement edit profile functionality
-                    }),
-
-                    _buildSettingsItem(
-                        Icons.card_giftcard, 'Upgrade Membership', () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                    SectionHeader(title: 'Account Settings'),
+                    SettingsItem(
+                      icon: Icons.person,
+                      title: 'Edit Profile',
+                      onTap: () {
+                        // Implement edit profile functionality
+                      },
+                    ),
+                    SettingsItem(
+                      icon: Icons.card_giftcard,
+                      title: 'Upgrade Membership',
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) =>
-                                const UpgradeMembershipScreen()),
-                      );
-                    }),
-                    _buildSectionHeader('App Settings'),
-                    _buildSettingsItem(Icons.notifications, 'Notifications',
-                        () {
-                      // Implement notification settings
-                    }),
-
-                    _buildSettingsItem(Icons.color_lens, 'Theme', () {
-                      // Implement theme selection
-                    }),
-                    _buildSectionHeader('Privacy Settings'),
-                    _buildSettingsItem(Icons.location_on, 'Location Privacy',
-                        () {
-                      // Implement location privacy settings
-                    }),
-                    _buildSettingsItem(Icons.visibility, 'Hide Profile', () {
-                      // Implement hide profile functionality
-                    }),
-                    _buildSectionHeader('About'),
-                    _buildSettingsItem(Icons.info, 'About Us', () {
-                      // Implement about us screen
-                    }),
-
-                    _buildSettingsItem(Icons.feedback, 'Send Feedback', () {
-                      // Implement send feedback functionality
-                    }),
-                    //    _buildSettingsItem(Icons.exit_to_app, 'Logout', () {
-                    _buildLogoutItem(context),
-                    //    }),
+                                const UpgradeMembershipScreen(),
+                          ),
+                        );
+                      },
+                    ),
+                    SectionHeader(title: 'App Settings'),
+                    SettingsItem(
+                      icon: Icons.notifications,
+                      title: 'Notifications',
+                      onTap: () {
+                        // Implement notification settings
+                      },
+                    ),
+                    SettingsItem(
+                      icon: Icons.color_lens,
+                      title: 'Theme',
+                      onTap: () {
+                        // Implement theme selection
+                      },
+                    ),
+                    SectionHeader(title: 'Privacy Settings'),
+                    SettingsItem(
+                      icon: Icons.location_on,
+                      title: 'Location Privacy',
+                      onTap: () {
+                        // Implement location privacy settings
+                      },
+                    ),
+                    SettingsItem(
+                      icon: Icons.visibility,
+                      title: 'Hide Profile',
+                      onTap: () {
+                        // Implement hide profile functionality
+                      },
+                    ),
+                    SectionHeader(title: 'About'),
+                    SettingsItem(
+                      icon: Icons.info,
+                      title: 'About Us',
+                      onTap: () {
+                        // Implement about us screen
+                      },
+                    ),
+                    SettingsItem(
+                      icon: Icons.feedback,
+                      title: 'Send Feedback',
+                      onTap: () {
+                        // Implement send feedback functionality
+                      },
+                    ),
+                    LogoutItem(context: context),
                     const SizedBox(height: 20),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -132,140 +160,4 @@ class _UserPageState extends State<UserPage> {
       ),
     );
   }
-}
-
-Widget _buildSettingsItem(IconData icon, String title, VoidCallback onTap) {
-  return InkWell(
-    onTap: onTap,
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                icon,
-                size: 28.0,
-                color: Colors.white,
-              ),
-              const SizedBox(width: 16.0),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          const Icon(
-            Icons.arrow_forward_ios,
-            size: 20.0,
-            color: Colors.grey,
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _buildSectionHeader(String title) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 12.0, bottom: 8.0),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      width: double.infinity,
-      color: Colors.black,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.red,
-            ),
-          ),
-          const SizedBox(
-              height: 8.0), // Adjust the space between title and line
-          Container(
-            height: 1.5,
-            color: Colors.grey[400],
-          ),
-        ],
-      ),
-    ),
-  );
-}
-
-Widget _buildLogoutItem(BuildContext context) {
-  return InkWell(
-    onTap: () {
-      // Show logout confirmation dialog
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Logout :('),
-            content: const Text('Are you sure you want to logout?'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  ); // Close the dialog
-                },
-                child: const Text('Logout'),
-              ),
-            ],
-          );
-        },
-      );
-    },
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
-      ),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.exit_to_app,
-                size: 28.0,
-                color: Colors.white,
-              ),
-              SizedBox(width: 16.0),
-              Text(
-                'Logout',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-          Icon(
-            Icons.arrow_forward_ios,
-            size: 20.0,
-            color: Colors.grey,
-          ),
-        ],
-      ),
-    ),
-  );
 }
