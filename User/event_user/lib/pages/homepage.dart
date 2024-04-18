@@ -1,4 +1,4 @@
-import 'package:event_user/pages/settingsPage.dart';
+import 'package:event_user/pages/UserPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -597,7 +597,7 @@ class HomePageState extends State<HomePage> {
                 // Check if the settings icon is clicked
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SettingPage()),
+                  MaterialPageRoute(builder: (context) => const UserPage()),
                 );
               } else {
                 setState(() {
@@ -654,7 +654,7 @@ class HomePageState extends State<HomePage> {
     Icons.home_rounded,
     Icons.calendar_month_rounded,
     Icons.bookmark_rounded,
-    Icons.settings_rounded,
+    Icons.person_outline_rounded,
   ];
 }
 
