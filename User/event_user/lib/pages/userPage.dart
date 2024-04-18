@@ -30,7 +30,7 @@ class _UserPageState extends State<UserPage> {
         ),
         backgroundColor: Colors.black,
         title: const Text(
-          'Settings',
+          'User',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -43,17 +43,20 @@ class _UserPageState extends State<UserPage> {
               const SizedBox(height: 40),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.white,
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(50),
                 ),
                 child: const Icon(Icons.person, size: 100),
               ),
               const SizedBox(height: 30),
               const Text(
-                'User Page',
-                style: TextStyle(color: Colors.white),
+                'ABC',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w200),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
               Divider(
                 height: 1.5,
                 thickness: 1,
