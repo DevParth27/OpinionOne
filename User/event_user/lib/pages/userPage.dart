@@ -50,7 +50,7 @@ class _UserPageState extends State<UserPage> {
               ),
               const SizedBox(height: 30),
               const Text(
-                'ABC',
+                'User Page',
                 style: TextStyle(color: Colors.white),
               ),
               const SizedBox(height: 50),
