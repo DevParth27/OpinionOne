@@ -1,5 +1,7 @@
 import 'package:event_user/pages/UserPage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -203,22 +205,29 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(width: 150),
-                                Container(
-                                  height: 40,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 102, 77, 177),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        'Join',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/eventdetails');
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 102, 77, 177),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          'Join',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -315,22 +324,29 @@ class HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 const SizedBox(width: 150),
-                                Container(
-                                  height: 40,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 102, 77, 177),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        'Join',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/eventdetails');
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 90,
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 102, 77, 177),
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Center(
+                                        child: Text(
+                                          'Join',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
                                     ),

@@ -72,9 +72,24 @@ class _UserPageState extends State<UserPage> {
                 flex: 1,
                 child: ListView(
                   padding: const EdgeInsets.symmetric(
-                      vertical: 20.0, horizontal: 16.0),
+                      vertical: 12.0, horizontal: 16.0),
                   children: [
-                    SectionHeader(title: 'Account Settings'),
+                    const SectionHeader(title: 'Event Manager'),
+                    SettingsItem(
+                      icon: Icons.event,
+                      title: 'Manage Events',
+                      onTap: () {
+                        // Implement edit profile functionality
+                      },
+                    ),
+                    SettingsItem(
+                      icon: Icons.online_prediction_rounded,
+                      title: 'Booking History',
+                      onTap: () {
+                        // Implement edit profile functionality
+                      },
+                    ),
+                    const SectionHeader(title: 'Account Settings'),
                     SettingsItem(
                       icon: Icons.person,
                       title: 'Edit Profile',
@@ -95,7 +110,7 @@ class _UserPageState extends State<UserPage> {
                         );
                       },
                     ),
-                    SectionHeader(title: 'App Settings'),
+                    const SectionHeader(title: 'App Settings'),
                     SettingsItem(
                       icon: Icons.notifications,
                       title: 'Notifications',
@@ -110,7 +125,7 @@ class _UserPageState extends State<UserPage> {
                         // Implement theme selection
                       },
                     ),
-                    SectionHeader(title: 'Privacy Settings'),
+                    const SectionHeader(title: 'Privacy Settings'),
                     SettingsItem(
                       icon: Icons.location_on,
                       title: 'Location Privacy',
@@ -125,7 +140,7 @@ class _UserPageState extends State<UserPage> {
                         // Implement hide profile functionality
                       },
                     ),
-                    SectionHeader(title: 'About'),
+                    const SectionHeader(title: 'About'),
                     SettingsItem(
                       icon: Icons.info,
                       title: 'About Us',
