@@ -19,9 +19,9 @@ class SettingsItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
-        ),
+        // decoration: BoxDecoration(
+        //   border: Border(bottom: BorderSide(color: Colors.grey.shade800)),
+        // ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
