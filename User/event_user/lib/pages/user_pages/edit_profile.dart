@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:event_user/pages/userPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -30,7 +32,25 @@ class EditProfilePageState extends State<EditProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 70.0),
+              const SizedBox(height: 25.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserPage()),
+                      );
+                    },
+                    child: Icon((Icons.arrow_back_ios_new_rounded),
+                        color: Colors.grey[300]),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30.0),
               Text(
                 'Edit Profile',
                 style: TextStyle(
@@ -140,10 +160,13 @@ class EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  Widget _buildTextField(String labelText) {
+  Widget _buildTextField(
+    String labelText,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextField(
+        // keyboardType: keyb,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(color: Colors.grey[200]),

@@ -1,6 +1,7 @@
 // user_page.dart
 import 'package:event_user/models/logout_item.dart';
 import 'package:event_user/models/settings_item.dart';
+import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/edit_profile.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,10 @@ class _UserPageState extends State<UserPage> {
               const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
           onPressed: () {
             // Navigate to home page
-            Navigator.pop(
-                context); // Example: Navigating back to the previous screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
           },
         ),
         backgroundColor: Colors.black,
