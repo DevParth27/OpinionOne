@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -31,7 +30,7 @@ class EditProfilePageState extends State<EditProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 50.0),
+              const SizedBox(height: 70.0),
               Text(
                 'Edit Profile',
                 style: TextStyle(
@@ -49,11 +48,22 @@ class EditProfilePageState extends State<EditProfilePage> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              ElevatedButton(
-                onPressed: () => _getImage(),
-                child: _image == null
-                    ? const Text('Add Profile Picture')
-                    : Image.file(File(_image!.path)),
+              Container(
+                width: 20,
+                height: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16),
+                  color: const Color.fromARGB(255, 36, 36, 36),
+                ),
+                child: IconButton(
+                  onPressed: () => _getImage(),
+                  icon: _image == null
+                      ? const Icon(
+                          Icons.person,
+                          size: 80,
+                        ) // You can replace `Icons.person` with your desired person icon
+                      : Image.file(File(_image!.path)),
+                ),
               ),
               const SizedBox(height: 20.0),
               Text(
