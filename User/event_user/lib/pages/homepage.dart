@@ -1,7 +1,5 @@
 import 'package:event_user/pages/UserPage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -588,6 +586,13 @@ class HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/createevent');
+        },
+        backgroundColor: Colors.grey[300],
+        child: const Icon(Icons.add),
       ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20),

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:event_user/pages/userPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {

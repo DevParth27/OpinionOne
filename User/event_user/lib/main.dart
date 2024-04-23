@@ -1,6 +1,7 @@
 import 'package:event_user/auth/login_user.dart';
 import 'package:event_user/auth/register_user.dart';
 import 'package:event_user/intro/onboarding_screen.dart';
+import 'package:event_user/pages/event_management/create_event.dart';
 import 'package:event_user/pages/event_management/event_details.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/home': (context) => const HomePage(),
         '/eventdetails': (context) => const EventDetails(),
-        //   '/editprofile': (context) => const EditProfilePage(),
+        '/createevent': (context) => const CreateEvent(),
       },
       home: const OnBoardingScreen(),
     );

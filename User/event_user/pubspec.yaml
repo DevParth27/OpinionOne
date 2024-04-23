@@ -45,7 +45,9 @@ dependencies:
   cloud_firestore: ^4.16.1
   google_sign_in: ^6.2.1
   local_auth: ^2.2.0
-  image_picker: ^1.1.0
+  image_picker:
+  internet_speed_test: ^1.5.0
+  intl:
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +81,9 @@ flutter:
     - assets\images\svgs\google.svg
     - assets\images\svgs\finger.svg
     - assets\images\images_show\home_cards\card 1.jpg
+    - assets\images\images_pages\eventlogo.jpeg
+    - assets\images\images_pages\update.png
+    - assets\images\images_pages\time.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
