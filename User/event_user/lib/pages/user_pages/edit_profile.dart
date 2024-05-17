@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:event_user/pages/userPage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -12,17 +15,73 @@ class EditProfilePage extends StatefulWidget {
 
 class EditProfilePageState extends State<EditProfilePage> {
   XFile? _image;
+  final ImagePicker _picker = ImagePicker();
+  late SharedPreferences _prefs;
 
-  void _getImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+  // Controllers for text fields
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
+  final TextEditingController _mobileNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _countryController = TextEditingController();
+  final TextEditingController _pincodeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _image = image;
+      _firstNameController.text = _prefs.getString('firstName') ?? '';
+      _lastNameController.text = _prefs.getString('lastName') ?? '';
+      _codeController.text = _prefs.getString('code') ?? '';
+      _mobileNumberController.text = _prefs.getString('mobileNumber') ?? '';
+      _emailController.text = _prefs.getString('email') ?? '';
+      _addressController.text = _prefs.getString('address') ?? '';
+      _cityController.text = _prefs.getString('city') ?? '';
+      _countryController.text = _prefs.getString('country') ?? '';
+      _pincodeController.text = _prefs.getString('pincode') ?? '';
+      final imagePath = _prefs.getString('imagePath');
+      if (imagePath != null) {
+        _image = XFile(imagePath);
+      }
     });
+  }
+
+  Future<void> _saveProfileData() async {
+    await _prefs.setString('firstName', _firstNameController.text);
+    await _prefs.setString('lastName', _lastNameController.text);
+    await _prefs.setString('code', _codeController.text);
+    await _prefs.setString('mobileNumber', _mobileNumberController.text);
+    await _prefs.setString('email', _emailController.text);
+    await _prefs.setString('address', _addressController.text);
+    await _prefs.setString('city', _cityController.text);
+    await _prefs.setString('country', _countryController.text);
+    await _prefs.setString('pincode', _pincodeController.text);
+    if (_image != null) {
+      await _prefs.setString('imagePath', _image!.path);
+    }
+  }
+
+  Future<void> _getImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _image = image;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -67,21 +126,28 @@ class EditProfilePageState extends State<EditProfilePage> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              Container(
-                width: 20,
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: const Color.fromARGB(255, 36, 36, 36),
-                ),
-                child: IconButton(
-                  onPressed: () => _getImage(),
-                  icon: _image == null
-                      ? const Icon(
-                          Icons.person,
-                          size: 80,
-                        ) // You can replace `Icons.person` with your desired person icon
-                      : Image.file(File(_image!.path)),
+              Center(
+                child: GestureDetector(
+                  onTap: () => _getImage(),
+                  child: ClipOval(
+                    child: Container(
+                      width: screenWidth * 0.4,
+                      height: screenWidth * 0.4,
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 36, 36, 36),
+                      ),
+                      child: _image == null
+                          ? const Icon(
+                              Icons.person,
+                              size: 80,
+                              color: Colors.grey,
+                            )
+                          : Image.file(
+                              File(_image!.path),
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 20.0),
@@ -93,43 +159,56 @@ class EditProfilePageState extends State<EditProfilePage> {
               Row(
                 children: [
                   Expanded(
-                    child: _buildTextField('First Name'),
+                    child: _buildTextField(_firstNameController, 'First Name'),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
-                    child: _buildTextField('Last Name'),
+                    child: _buildTextField(_lastNameController, 'Last Name'),
                   ),
                 ],
               ),
               Row(
                 children: [
                   SizedBox(
-                    width: 100,
-                    child: _buildTextField('Code'),
+                    width: 60,
+                    child: _buildTextField(
+                      _codeController,
+                      '+91',
+                      TextInputType.number,
+                    ),
                   ),
                   const SizedBox(width: 10.0),
                   Expanded(
-                    child: _buildTextField('Mobile Number'),
+                    child: _buildTextField(
+                      _mobileNumberController,
+                      'Mobile Number',
+                      TextInputType.number,
+                    ),
                   ),
                 ],
               ),
-              _buildTextField('Email'),
+              _buildTextField(_emailController, 'Email'),
               const SizedBox(height: 20.0),
               Text(
                 'Address Information',
                 style: TextStyle(fontSize: 18.0, color: Colors.grey[400]),
               ),
-              _buildTextField('Address'),
-              _buildTextField('City'),
-              _buildTextField('Country'),
-              _buildTextField('Pincode'),
+              _buildTextField(_addressController, 'Address'),
+              _buildTextField(_cityController, 'City'),
+              _buildTextField(_countryController, 'Country'),
+              _buildTextField(_pincodeController, 'Pincode'),
               const SizedBox(height: 16.0),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
+                  await _saveProfileData();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Profile data saved successfully!'),
+                    ),
+                  );
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const EditProfilePage()),
+                    MaterialPageRoute(builder: (context) => const UserPage()),
                   );
                 },
                 child: Container(
@@ -160,12 +239,16 @@ class EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget _buildTextField(
-    String labelText,
-  ) {
+    TextEditingController controller,
+    String labelText, [
+    TextInputType keyboardType = TextInputType.text,
+  ]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextField(
-        // keyboardType: keyb,
+        controller: controller,
+        keyboardType: keyboardType,
+        style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(color: Colors.grey[200]),

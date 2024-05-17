@@ -1,7 +1,6 @@
 import 'package:event_user/pages/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../widgets/checkbox_widget.dart';
@@ -65,18 +64,16 @@ class _CreateEventState extends State<CreateEvent> {
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
-      // You can use the pickedImage.path to access the image file path
-      // You can also display the picked image in your UI if needed
       setState(() {
-        _selectedImage = pickedImage; // Store the selected image file
+        _selectedImage = pickedImage;
       });
-    } else {
-      // User canceled the picker
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 87, 87, 88),
       body: SingleChildScrollView(
@@ -84,6 +81,7 @@ class _CreateEventState extends State<CreateEvent> {
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(
+              width: width * 0.9,
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 39, 39, 39),
                 borderRadius: BorderRadius.circular(16),
@@ -99,6 +97,7 @@ class _CreateEventState extends State<CreateEvent> {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -106,15 +105,14 @@ class _CreateEventState extends State<CreateEvent> {
                       height: 1.5,
                       thickness: 1,
                       color: Colors.grey[400],
-                      indent: 10, // Left padding
-                      endIndent: 10, // Right padding
+                      indent: 10,
+                      endIndent: 10,
                     ),
                     const SizedBox(height: 20),
                     _title('Title'),
                     const SizedBox(height: 10),
                     _buildTextField(
-                        text: 'Event Title',
-                        keyboardType: TextInputType.emailAddress),
+                        text: 'Event Title', keyboardType: TextInputType.text),
                     const SizedBox(height: 11),
                     _title('Date'),
                     const SizedBox(height: 10),
@@ -128,42 +126,28 @@ class _CreateEventState extends State<CreateEvent> {
                     const SizedBox(height: 10),
                     _buildTimeField2(),
                     const SizedBox(height: 19),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.compare_arrows_rounded,
-                          color: Colors.green,
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          _selectedDate != null && _selectedTime != null
-                              ? "This event will take place on the ${DateFormat('MMMM dd, yyyy').format(_selectedDate!)}\nFrom ${_selectedTime!.hour}:${_selectedTime!.minute} ${_selectedTime!.period.name.toUpperCase()} To ${_selectedTime2!.hour}:${_selectedTime2!.minute} ${_selectedTime2!.period.name.toUpperCase()}"
-                              : "Please select date and time",
-                          style: TextStyle(color: Colors.grey[300]),
-                        ),
-                      ],
-                    ),
+                    _eventDetails(),
                     const SizedBox(height: 20),
                     Divider(
                       height: 1.5,
                       thickness: 1,
                       color: Colors.grey[400],
-                      indent: 10, // Left padding
-                      endIndent: 10, // Right padding
+                      indent: 10,
+                      endIndent: 10,
                     ),
                     const SizedBox(height: 5),
                     _title('Location'),
                     const SizedBox(height: 10),
                     _buildTextField(
                         text: 'Event Location',
-                        keyboardType: TextInputType.emailAddress),
+                        keyboardType: TextInputType.text),
                     const SizedBox(height: 20),
                     Divider(
                       height: 1.5,
                       thickness: 1,
                       color: Colors.grey[400],
-                      indent: 10, // Left padding
-                      endIndent: 10, // Right padding
+                      indent: 10,
+                      endIndent: 10,
                     ),
                     const SizedBox(height: 11),
                     _title('Guests'),
@@ -172,55 +156,14 @@ class _CreateEventState extends State<CreateEvent> {
                         text: 'Expected Number of Guests',
                         keyboardType: TextInputType.number),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        const SizedBox(width: 8),
-                        Text(
-                          'Guest can',
-                          style: TextStyle(color: Colors.grey[300]),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 5),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MyCheckbox(
-                          label: 'Modify Event',
-                          isChecked: _isChecked1,
-                          onChanged: (value) {
-                            setState(() {
-                              _isChecked1 = value!;
-                            });
-                          },
-                        ),
-                        MyCheckbox(
-                          label: 'Invite Others',
-                          isChecked: _isChecked2,
-                          onChanged: (value) {
-                            setState(() {
-                              _isChecked2 = value!;
-                            });
-                          },
-                        ),
-                        MyCheckbox(
-                          label: 'See guest List',
-                          isChecked: _isChecked3,
-                          onChanged: (value) {
-                            setState(() {
-                              _isChecked3 = value!;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
+                    _guestOptions(),
                     const SizedBox(height: 20),
                     Divider(
                       height: 1.5,
                       thickness: 1,
                       color: Colors.grey[400],
-                      indent: 10, // Left padding
-                      endIndent: 10, // Right padding
+                      indent: 10,
+                      endIndent: 10,
                     ),
                     _title('Upload Banner Image'),
                     const SizedBox(height: 10),
@@ -239,55 +182,11 @@ class _CreateEventState extends State<CreateEvent> {
                       height: 1.5,
                       thickness: 1,
                       color: Colors.grey[400],
-                      indent: 10, // Left padding
-                      endIndent: 10, // Right padding
+                      indent: 10,
+                      endIndent: 10,
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                color: Colors.blue),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Center(
-                                child: Text('Create Event',
-                                    style: TextStyle(color: Colors.grey[300])),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                ),
-                              );
-                            },
-                            behavior: HitTestBehavior.opaque,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  color: Colors.blue),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Center(
-                                  child: Text('Cancel',
-                                      style:
-                                          TextStyle(color: Colors.grey[300])),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    _actionButtons(context),
                   ],
                 ),
               ),
@@ -308,15 +207,9 @@ class _CreateEventState extends State<CreateEvent> {
         fillColor: const Color.fromARGB(255, 27, 27, 27),
         hintText: text,
         hintStyle: TextStyle(color: Colors.grey[300]),
-        // labelStyle: TextStyle(color: Colors.grey[400]),
-        border: InputBorder.none,
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent),
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide.none,
         ),
       ),
     );
@@ -327,7 +220,8 @@ class _CreateEventState extends State<CreateEvent> {
       padding: const EdgeInsets.only(top: 20.0),
       child: Text(
         text,
-        style: const TextStyle(color: Colors.white, fontSize: 16),
+        style: const TextStyle(
+            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -356,10 +250,9 @@ class _CreateEventState extends State<CreateEvent> {
           fillColor: const Color.fromARGB(255, 27, 27, 27),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-          border: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(11.0),
+            borderSide: BorderSide.none,
           ),
         ),
         child: Row(
@@ -393,10 +286,9 @@ class _CreateEventState extends State<CreateEvent> {
           fillColor: const Color.fromARGB(255, 27, 27, 27),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-          border: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(11.0),
+            borderSide: BorderSide.none,
           ),
         ),
         child: Row(
@@ -404,7 +296,7 @@ class _CreateEventState extends State<CreateEvent> {
           children: [
             _selectedTime != null
                 ? Text(
-                    '${_selectedTime!.hour}:${_selectedTime!.minute}  ${_selectedTime!.period.name.toUpperCase()}',
+                    '${_selectedTime!.hour}:${_selectedTime!.minute.toString().padLeft(2, '0')}  ${_selectedTime!.period.name.toUpperCase()}',
                     style: const TextStyle(color: Colors.white),
                   )
                 : Text(
@@ -430,10 +322,9 @@ class _CreateEventState extends State<CreateEvent> {
           fillColor: const Color.fromARGB(255, 27, 27, 27),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 10.0, horizontal: 12.0),
-          border: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(11.0),
+            borderSide: BorderSide.none,
           ),
         ),
         child: Row(
@@ -441,7 +332,7 @@ class _CreateEventState extends State<CreateEvent> {
           children: [
             _selectedTime2 != null
                 ? Text(
-                    '${_selectedTime2!.hour}:${_selectedTime2!.minute}  ${_selectedTime2!.period.name.toUpperCase()}',
+                    '${_selectedTime2!.hour}:${_selectedTime2!.minute.toString().padLeft(2, '0')}  ${_selectedTime2!.period.name.toUpperCase()}',
                     style: const TextStyle(color: Colors.white),
                   )
                 : Text(
@@ -488,6 +379,116 @@ class _CreateEventState extends State<CreateEvent> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _eventDetails() {
+    return Row(
+      children: [
+        const Icon(
+          Icons.compare_arrows_rounded,
+          color: Colors.green,
+        ),
+        const SizedBox(width: 5),
+        Expanded(
+          child: Text(
+            _selectedDate != null &&
+                    _selectedTime != null &&
+                    _selectedTime2 != null
+                ? "This event will take place on ${DateFormat('MMMM dd, yyyy').format(_selectedDate!)}\nFrom ${_selectedTime!.hour}:${_selectedTime!.minute.toString().padLeft(2, '0')} ${_selectedTime!.period.name.toUpperCase()} To ${_selectedTime2!.hour}:${_selectedTime2!.minute.toString().padLeft(2, '0')} ${_selectedTime2!.period.name.toUpperCase()}"
+                : "Please select date and time",
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _guestOptions() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        MyCheckbox(
+          label: 'Modify Event',
+          isChecked: _isChecked1,
+          onChanged: (value) {
+            setState(() {
+              _isChecked1 = value!;
+            });
+          },
+        ),
+        MyCheckbox(
+          label: 'Invite Others',
+          isChecked: _isChecked2,
+          onChanged: (value) {
+            setState(() {
+              _isChecked2 = value!;
+            });
+          },
+        ),
+        MyCheckbox(
+          label: 'See Guest List',
+          isChecked: _isChecked3,
+          onChanged: (value) {
+            setState(() {
+              _isChecked3 = value!;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _actionButtons(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              // Implement event creation logic here
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Colors.blue,
+              ),
+              padding: const EdgeInsets.all(10.0),
+              child: Center(
+                child: Text(
+                  'Create Event',
+                  style: TextStyle(color: Colors.grey[300], fontSize: 16),
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: Colors.red,
+              ),
+              padding: const EdgeInsets.all(10.0),
+              child: Center(
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.grey[300], fontSize: 16),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

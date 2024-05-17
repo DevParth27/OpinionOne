@@ -1,4 +1,5 @@
-// user_page.dart
+import 'dart:io';
+
 import 'package:event_user/models/logout_item.dart';
 import 'package:event_user/models/settings_item.dart';
 import 'package:event_user/pages/homepage.dart';
@@ -6,15 +7,35 @@ import 'package:event_user/pages/user_pages/aboutus.dart';
 import 'package:event_user/pages/user_pages/edit_profile.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+  const UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();
 }
 
 class _UserPageState extends State<UserPage> {
+  String? _firstName;
+  String? _lastName;
+  String? _imagePath;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileData();
+  }
+
+  Future<void> _loadProfileData() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _firstName = prefs.getString('firstName');
+      _lastName = prefs.getString('lastName');
+      _imagePath = prefs.getString('imagePath');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +57,7 @@ class _UserPageState extends State<UserPage> {
         ),
         backgroundColor: Colors.black,
         title: const Text(
-          'User',
+          '',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -47,30 +68,39 @@ class _UserPageState extends State<UserPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[400],
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Icon(Icons.person, size: 75),
+              ClipOval(
+                child: _imagePath == null
+                    ? Container(
+                        width: 120,
+                        height: 120,
+                        color: Colors.grey[400],
+                        child: const Icon(Icons.person, size: 120),
+                      )
+                    : Image.file(
+                        File(_imagePath!),
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
               ),
               const SizedBox(height: 22),
-              const Text(
-                'ABC',
-                style: TextStyle(
+              Text(
+                "Welcome, ${_firstName != null && _lastName != null ? ' $_firstName $_lastName' : ' NULL'}",
+                style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w200,
+                  fontSize: 23,
+                  fontWeight: FontWeight.w100,
                 ),
               ),
               const SizedBox(height: 25),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const EditProfilePage()),
                   );
+                  _loadProfileData(); // Reload profile data after editing
                 },
                 child: Container(
                   width: 120,
@@ -110,14 +140,14 @@ class _UserPageState extends State<UserPage> {
                       icon: Icons.event,
                       title: 'Manage Events',
                       onTap: () {
-                        // Implement edit profile functionality
+                        // Implement manage events functionality
                       },
                     ),
                     SettingsItem(
                       icon: Icons.online_prediction_rounded,
                       title: 'Booking History',
                       onTap: () {
-                        // Implement edit profile functionality
+                        // Implement booking history functionality
                       },
                     ),
                     SettingsItem(
@@ -163,7 +193,7 @@ class _UserPageState extends State<UserPage> {
                       },
                     ),
                     LogoutItem(context: context),
-                    const SizedBox(height: 110),
+                    const SizedBox(height: 84),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
