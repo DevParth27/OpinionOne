@@ -96,7 +96,7 @@ class AboutUsPage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.phone, color: Colors.white),
               title: Text(
-                'Phone: +1234567890',
+                'Phone: +91 9511827732',
                 style: TextStyle(
                   color: Colors.grey[300],
                 ),
@@ -119,7 +119,7 @@ class AboutUsPage extends StatelessWidget {
               leading: Image.asset('assets/images/images_pages/time.png',
                   color: Colors.white, width: 26, height: 26),
               title: Text(
-                'Version : 1.0.0',
+                'Version : 1.0.1',
                 style: TextStyle(
                   color: Colors.grey[300],
                 ),
@@ -132,7 +132,7 @@ class AboutUsPage extends StatelessWidget {
               leading: Image.asset('assets/images/images_pages/update.png',
                   color: Colors.white, width: 26, height: 26),
               title: Text(
-                'Last Updated : April 22, 2024',
+                'Last Updated : May 17, 2024',
                 style: TextStyle(
                   color: Colors.grey[300],
                 ),

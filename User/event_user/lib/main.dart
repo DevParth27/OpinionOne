@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   const loginPage = LoginPage();
-  await loginPage.checkBiometric(); // Call checkBiometric on the instance
+  await loginPage.checkBiometric();
   runApp(const MyApp());
 }
 
