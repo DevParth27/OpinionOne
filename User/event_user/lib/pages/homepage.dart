@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  bool _isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
   var currentIndex = 0;
 
   @override
@@ -24,36 +26,87 @@ class HomePageState extends State<HomePage> {
           title: Column(
             children: [
               Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(width: 5), // Adjust spacing
-                  const Text(
-                    'EventoFactor',
-                    style: TextStyle(
-                      fontSize: 29,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  const Spacer(), // Takes available space
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: const Color.fromARGB(255, 20, 20, 20),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: IconButton(
-                        icon: const Icon(Icons.search, color: Colors.white),
-                        onPressed: () {
-                          // Add your search functionality here
-                        },
-                        iconSize: 30,
+                  const SizedBox(width: 5),
+                  // Conditionally show the title or search bar
+                  if (!_isSearching)
+                    const Text(
+                      'EventoFactor',
+                      style: TextStyle(
+                        fontSize: 29,
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
-                  ),
-                  const SizedBox(width: 10), // Adjust spacing
+                  if (_isSearching)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: const InputDecoration(
+                            hintText: 'Search...',
+                            hintStyle: TextStyle(color: Colors.white70),
+                            border: InputBorder.none,
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                          autofocus: true,
+                          onSubmitted: (query) {
+                            // Handle search submission
+                            setState(() {
+                              _isSearching = false;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  const Spacer(),
+                  if (!_isSearching)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSearching = true;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color.fromARGB(255, 20, 20, 20),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (_isSearching)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSearching = false;
+                          _searchController.clear();
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: const Color.fromARGB(255, 20, 20, 20),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  const SizedBox(width: 10),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
@@ -71,17 +124,16 @@ class HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 2), // Adjust spacing
+                  const SizedBox(width: 2),
                 ],
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: 100, // Adjust height as needed
-                child: HorizontalCalendar(),
+                height: 100,
+                child:
+                    HorizontalCalendar(), // Assuming HorizontalCalendar is defined elsewhere
               ),
-              const SizedBox(
-                height: 11,
-              ),
+              const SizedBox(height: 11),
               const Row(
                 children: [
                   SizedBox(width: 13),
@@ -103,13 +155,13 @@ class HomePageState extends State<HomePage> {
                 height: 2,
                 thickness: 1,
                 color: Colors.grey[400],
-                indent: 10, // Left padding
-                endIndent: 10, // Right padding
-              ), // Adjust spacing
+                indent: 10,
+                endIndent: 10,
+              ),
             ],
           ),
           backgroundColor: Colors.black,
-          elevation: 0, // Removes shadow
+          elevation: 0,
         ),
       ),
       body: SingleChildScrollView(
