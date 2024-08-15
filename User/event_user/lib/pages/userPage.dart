@@ -4,8 +4,10 @@ import 'package:event_user/models/logout_item.dart';
 import 'package:event_user/models/settings_item.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/aboutus.dart';
+import 'package:event_user/pages/user_pages/bookingHistoryPage.dart';
 import 'package:event_user/pages/user_pages/edit_profile.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
+import 'package:event_user/pages/user_pages/manageEvents.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -141,14 +143,24 @@ class _UserPageState extends State<UserPage> {
                       icon: Icons.event,
                       title: 'Manage Events',
                       onTap: () {
-                        // Implement manage events functionality
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ManageEventsPage(),
+                          ),
+                        );
                       },
                     ),
                     SettingsItem(
                       icon: Icons.online_prediction_rounded,
-                      title: 'Booking History',
+                      title: 'Booking / Confirmation History',
                       onTap: () {
-                        // Implement booking history functionality
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BookingHistoryPage(),
+                          ),
+                        );
                       },
                     ),
                     SettingsItem(

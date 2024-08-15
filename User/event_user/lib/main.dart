@@ -5,6 +5,7 @@ import 'package:event_user/pages/event_management/create_event.dart';
 import 'package:event_user/pages/event_management/event_details.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
+import 'package:event_user/pages/user_pages/manageEvents.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/eventdetails': (context) => const EventDetails(),
         '/createevent': (context) => const CreateEvent(),
         '/helpnsupport': (context) => const HelpAndSupportPage(),
+        '/manageevents': (context) => const ManageEventsPage(),
       },
       home: const OnBoardingScreen(),
     );
