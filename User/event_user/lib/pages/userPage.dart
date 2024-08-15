@@ -153,7 +153,7 @@ class _UserPageState extends State<UserPage> {
                     ),
                     SettingsItem(
                       icon: Icons.online_prediction_rounded,
-                      title: 'Booking / Confirmation History',
+                      title: 'Confirmation History',
                       onTap: () {
                         Navigator.push(
                           context,

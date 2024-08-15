@@ -41,7 +41,7 @@ class BookingHistoryPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'Booking History',
+          'Confirmation History',
           style: TextStyle(
             color: Colors.grey[300],
             fontWeight: FontWeight.w600,

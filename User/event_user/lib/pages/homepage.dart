@@ -253,8 +253,8 @@ class HomePageState extends State<HomePage> {
                       Expanded(
                         flex: 2,
                         child: Image.asset(
-                          'assets/images/images_show/home_cards/card 1.jpg',
-                          fit: BoxFit.cover,
+                          'assets/images/images_show/mahic.jpg',
+                          fit: BoxFit.fill,
                         ), // Replace with your image widget
                       ),
                       const SizedBox(
@@ -271,7 +271,7 @@ class HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Alan Walker Music',
+                                  'Magical Show',
                                   style: TextStyle(
                                     fontSize: 26,
                                     color: Colors.white,
@@ -289,7 +289,7 @@ class HomePageState extends State<HomePage> {
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
-                                  '12 - 14 Mar 2024',
+                                  '20 - 22 Dec 2024',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey[400],
@@ -315,238 +315,7 @@ class HomePageState extends State<HomePage> {
                                     color: Colors.white),
                                 const SizedBox(width: 5),
                                 Text(
-                                  '+73.2K',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 150),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/eventdetails');
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 102, 77, 177),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          'Join',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 455,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 20, 20, 20),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          'assets/images/images_show/home_cards/card 1.jpg',
-                          fit: BoxFit.cover,
-                        ), // Replace with your image widget
-                      ),
-                      const SizedBox(
-                          width: 20), // Add some spacing between image and text
-                      // Text and dummy data take 1/4 of the card
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Alan Walker Music',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '12 - 14 Mar 2024',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 50),
-                                const Icon(Icons.location_on_outlined,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  'Nagpur, India',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                const Icon(Icons.person_outline,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '+73.2K',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 150),
-                                Container(
-                                  height: 40,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 102, 77, 177),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        'Join',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 455,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 20, 20, 20),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          'assets/images/images_show/home_cards/card 1.jpg',
-                          fit: BoxFit.cover,
-                        ), // Replace with your image widget
-                      ),
-                      const SizedBox(
-                          width: 20), // Add some spacing between image and text
-                      // Text and dummy data take 1/4 of the card
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Alan Walker Music',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '12 - 14 Mar 2024',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 50),
-                                const Icon(Icons.location_on_outlined,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  'Nagpur, India',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                const Icon(Icons.person_outline,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '+73.2K',
+                                  '+2.2K',
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey[400],

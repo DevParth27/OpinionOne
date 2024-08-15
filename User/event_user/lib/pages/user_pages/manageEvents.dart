@@ -17,6 +17,13 @@ class _ManageEventsPageState extends State<ManageEventsPage> {
       'location': 'Nagpur, India',
       'description': 'A Music Show'
     },
+    {
+      'title': 'Magical Show',
+      'date': '20 - 22 Dec 2024',
+      'Number of people': '+2.2K',
+      'location': 'Nagpur, India',
+      'description': 'A magical Show'
+    },
   ];
 
   void _editEvent(int index) {
