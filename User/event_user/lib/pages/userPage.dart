@@ -5,6 +5,7 @@ import 'package:event_user/models/settings_item.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/aboutus.dart';
 import 'package:event_user/pages/user_pages/edit_profile.dart';
+import 'package:event_user/pages/user_pages/helpNsupport.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -189,7 +190,12 @@ class _UserPageState extends State<UserPage> {
                       icon: Icons.feedback,
                       title: 'Help & Support',
                       onTap: () {
-                        // Implement send feedback functionality
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HelpAndSupportPage(),
+                          ),
+                        );
                       },
                     ),
                     LogoutItem(context: context),

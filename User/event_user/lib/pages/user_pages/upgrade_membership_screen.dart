@@ -37,7 +37,7 @@ class UpgradeMembershipScreen extends StatelessWidget {
                 features: [
                   'Basic Features',
                   '24/7 support',
-                  'Create upto 2 events per month',
+                  'Create upto 3 events per month',
                 ],
               ),
               SizedBox(height: 20),
@@ -122,7 +122,8 @@ class MembershipCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: features
                   .map((feature) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 4, horizontal: 4),
                         child: Row(
                           children: [
                             const Icon(

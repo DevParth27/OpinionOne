@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:io';
 import 'package:event_user/pages/userPage.dart';
 import 'package:flutter/material.dart';
@@ -112,16 +110,16 @@ class EditProfilePageState extends State<EditProfilePage> {
               Text(
                 'Edit Profile',
                 style: TextStyle(
-                  fontSize: 21.0,
-                  fontWeight: FontWeight.w200,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
                   color: Colors.grey[300],
                 ),
               ),
               Text(
                 'Edit your profile details',
                 style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w200,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w300,
                   color: Colors.grey[500],
                 ),
               ),
@@ -134,7 +132,21 @@ class EditProfilePageState extends State<EditProfilePage> {
                       width: screenWidth * 0.4,
                       height: screenWidth * 0.4,
                       decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 36, 36, 36),
+                        gradient: LinearGradient(
+                          colors: [
+                            Color.fromARGB(255, 40, 40, 40),
+                            Color.fromARGB(255, 36, 36, 36),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black54,
+                            blurRadius: 10.0,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: _image == null
                           ? const Icon(
@@ -203,7 +215,15 @@ class EditProfilePageState extends State<EditProfilePage> {
                   await _saveProfileData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Profile data saved successfully!'),
+                      content: Row(
+                        children: [
+                          Icon(Icons.check_circle, color: Colors.green),
+                          SizedBox(width: 8),
+                          Text('Profile data saved successfully!'),
+                        ],
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.black87,
                     ),
                   );
                   Navigator.push(
@@ -216,8 +236,19 @@ class EditProfilePageState extends State<EditProfilePage> {
                   height: 45,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    gradient: const LinearGradient(
+                      colors: [Colors.blue, Colors.blueAccent],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                     borderRadius: BorderRadius.circular(11),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.blueAccent,
+                        blurRadius: 6.0,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -226,7 +257,7 @@ class EditProfilePageState extends State<EditProfilePage> {
                       style: TextStyle(
                           fontSize: 17,
                           color: Colors.white,
-                          fontWeight: FontWeight.w200),
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
@@ -252,7 +283,16 @@ class EditProfilePageState extends State<EditProfilePage> {
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: TextStyle(color: Colors.grey[200]),
-          border: const OutlineInputBorder(),
+          filled: true,
+          fillColor: const Color.fromARGB(255, 30, 30, 30),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.blueAccent),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey[500]!),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
         ),
       ),
     );

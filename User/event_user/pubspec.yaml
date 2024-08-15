@@ -89,6 +89,8 @@ flutter:
     - assets\images\images_pages\eventlogo.jpeg
     - assets\images\images_pages\update.png
     - assets\images\images_pages\time.png
+    - assets\images\images_show\color_marble.jpg
+    - assets\images\images_pages\eventl.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

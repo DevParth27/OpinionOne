@@ -4,6 +4,7 @@ import 'package:event_user/intro/onboarding_screen.dart';
 import 'package:event_user/pages/event_management/create_event.dart';
 import 'package:event_user/pages/event_management/event_details.dart';
 import 'package:event_user/pages/homepage.dart';
+import 'package:event_user/pages/user_pages/helpNsupport.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Event Management App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/eventdetails': (context) => const EventDetails(),
         '/createevent': (context) => const CreateEvent(),
+        '/helpnsupport': (context) => const HelpAndSupportPage(),
       },
       home: const OnBoardingScreen(),
     );

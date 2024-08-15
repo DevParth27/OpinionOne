@@ -9,141 +9,154 @@ class AboutUsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 25.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const UserPage()),
-                    );
-                  },
-                  child: Icon((Icons.arrow_back_ios_new_rounded),
-                      color: Colors.grey[300]),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10.0),
-            const CircleAvatar(
-              radius: 80.0,
-              backgroundImage:
-                  AssetImage('assets/images/images_pages/eventlogo.jpeg'),
-            ),
+            _buildHeader(context),
             const SizedBox(height: 20.0),
-            const Text(
-              'EventoFactor',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            _buildProfileSection(),
+            const SizedBox(height: 30.0),
+            _buildSectionTitle('About Us'),
             const SizedBox(height: 10.0),
-            Text(
-              'Your Ultimate Event Management Partner',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey[300],
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            const Text(
-              'About Us',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 10.0),
-            Text(
+            _buildDescriptionText(
               'Eventify is a cutting-edge event management app designed to simplify the process of organizing and managing events of all sizes. Our mission is to empower event organizers with powerful tools and resources to create memorable experiences for their attendees.',
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.grey[300],
-              ),
             ),
-            const SizedBox(height: 20.0),
-            const Text(
-              'Contact Us',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
+            const SizedBox(height: 30.0),
+            _buildSectionTitle('Contact Us'),
             const SizedBox(height: 10.0),
-            ListTile(
-              leading: const Icon(Icons.email, color: Colors.white),
-              title: Text(
-                'Email: info@eventofactor.com',
-                style: TextStyle(
-                  color: Colors.grey[300],
-                ),
-              ),
-              onTap: () {
-                // Action for tapping on email
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.phone, color: Colors.white),
-              title: Text(
-                'Phone: +91 9511827732',
-                style: TextStyle(
-                  color: Colors.grey[300],
-                ),
-              ),
-              onTap: () {
-                // Action for tapping on phone number
-              },
-            ),
-            const SizedBox(height: 20.0),
-            const Text(
-              'App Version',
-              style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            _buildContactInfo(),
+            const SizedBox(height: 30.0),
+            _buildSectionTitle('App Version'),
             const SizedBox(height: 10.0),
-            ListTile(
-              leading: Image.asset('assets/images/images_pages/time.png',
-                  color: Colors.white, width: 26, height: 26),
-              title: Text(
-                'Version : 1.0.1',
-                style: TextStyle(
-                  color: Colors.grey[300],
-                ),
-              ),
-              onTap: () {
-                // Action for tapping on email
-              },
-            ),
-            ListTile(
-              leading: Image.asset('assets/images/images_pages/update.png',
-                  color: Colors.white, width: 26, height: 26),
-              title: Text(
-                'Last Updated : May 17, 2024',
-                style: TextStyle(
-                  color: Colors.grey[300],
-                ),
-              ),
-              onTap: () {
-                // Action for tapping on email
-              },
-            ),
+            _buildVersionInfo(),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const UserPage()),
+            );
+          },
+          child:
+              Icon(Icons.arrow_back_ios_new_rounded, color: Colors.grey[300]),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProfileSection() {
+    return const Column(
+      children: [
+        CircleAvatar(
+          radius: 80.0,
+          backgroundImage: AssetImage('assets/images/images_pages/eventl.jpg'),
+        ),
+        SizedBox(height: 20.0),
+        Text(
+          'EventoFactor',
+          style: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        SizedBox(height: 10.0),
+        Text(
+          'Your Ultimate Event Management Partner',
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Colors.grey,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 22.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget _buildDescriptionText(String description) {
+    return Text(
+      description,
+      textAlign: TextAlign.justify,
+      style: TextStyle(
+        fontSize: 16.0,
+        color: Colors.grey[300],
+      ),
+    );
+  }
+
+  Widget _buildContactInfo() {
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.email, color: Colors.white),
+          title: Text(
+            'Email: info@eventofactor.com',
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+          onTap: () {
+            // Handle email tap
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.phone, color: Colors.white),
+          title: Text(
+            'Phone: +91 9511827732',
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+          onTap: () {
+            // Handle phone tap
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildVersionInfo() {
+    return Column(
+      children: [
+        ListTile(
+          leading: Image.asset('assets/images/images_pages/time.png',
+              color: Colors.white, width: 26, height: 26),
+          title: Text(
+            'Version: 1.0.7',
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+          onTap: () {
+            // Handle version tap
+          },
+        ),
+        ListTile(
+          leading: Image.asset('assets/images/images_pages/update.png',
+              color: Colors.white, width: 26, height: 26),
+          title: Text(
+            'Last Updated: AUG 15, 2024',
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+          onTap: () {
+            // Handle update info tap
+          },
+        ),
+      ],
     );
   }
 }
