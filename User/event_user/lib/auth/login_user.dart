@@ -8,7 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -92,212 +92,216 @@ class _LoginPageState extends State<LoginPage> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 212, 73, 203),
-                Color.fromARGB(191, 152, 67, 155),
-                Color.fromARGB(255, 7, 13, 40),
-                Color(0xFF000000),
-              ],
-            ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF001F54), // Deep Navy Blue
+              Color(0xFF013A63), // Dark Cyan Blue
+              Color(0xFF2A6F97), // Steel Blue
+              Color(0xFF61A5C2), // Muted Aquamarine
+            ],
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 80),
-                const Row(
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 150),
+              const Row(
+                children: [
+                  SizedBox(width: 22),
+                  Row(
+                    children: [
+                      Text(
+                        'Bartr Group says',
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Hi!',
+                        style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              buildTextField(
+                'Your Email',
+                false,
+                const Icon(Icons.email),
+                emailController,
+                null,
+              ),
+              buildSizedBox(0),
+              buildTextField(
+                'Password',
+                obscurePassword,
+                const Icon(Icons.lock),
+                passwordController,
+                (bool newValue) {
+                  togglePasswordVisibility(newValue);
+                },
+              ),
+              buildSizedBox(10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/home');
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(13),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xFF3C1A5B), // Deep Purple
+                            Color(0xFF6A0572), // Rich Plum
+                            Color(0xFFA4133C), // Burgundy Red
+                            Color(0xFFB85C8E), // Dark Coral Pink
+                          ],
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'L o g i n',
+                            style: GoogleFonts.getFont('Roboto').copyWith(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 14,
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       const SizedBox(width: 5),
+              //       Text(
+              //         ' Or',
+              //         style: TextStyle(
+              //           color: Colors.grey[100],
+              //           fontSize: 20,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // const SizedBox(height: 14),
+              // buildSocialButton(
+              //   iconPath: 'assets/images/svgs/google.svg',
+              //   text: 'Sign in with Google',
+              //   onPressed: () async {
+              //     final userCredential = await _signInWithGoogle();
+              //     if (userCredential != null) {
+              //       Navigator.pushNamed(context, '/home');
+              //       print(
+              //           'User signed in: ${userCredential.user!.displayName}');
+              //       ScaffoldMessenger.of(context).showSnackBar(
+              //         SnackBar(
+              //           content: Text(
+              //             'Authentication Successful and Updated!\nUser signed in as ${userCredential.user!.displayName}',
+              //           ),
+              //         ),
+              //       );
+              //     } else {
+              //       print('Sign in failed.');
+              //     }
+              //   },
+              // ),
+              // const SizedBox(height: 13),
+              // buildSocialButton(
+              //   iconPath: 'assets/images/svgs/apple.svg',
+              //   text: 'Sign in with Apple',
+              //   onPressed: () {
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       const SnackBar(
+              //         content: Text(
+              //           'Sorry! This feature is currently unavailable.',
+              //         ),
+              //       ),
+              //     );
+              //   },
+              // ),
+              // const SizedBox(height: 13),
+              // buildSocialButton(
+              //   iconPath: 'assets/images/svgs/finger.svg',
+              //   text: 'Login using Biometric',
+              //   onPressed: () {
+              //     _authenticate(context);
+              //   },
+              // ),
+              const SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Row(
                   children: [
-                    SizedBox(width: 22),
-                    Text(
-                      'Hi!',
-                      style: TextStyle(
-                        fontSize: 45,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    const Text(
+                      'Don\u0027t have an account ?',
+                      style: TextStyle(fontSize: 18, color: Color(0xFFFFFFFF)),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: const Text(
+                        'Sign Up',
+                        style:
+                            TextStyle(fontSize: 18, color: Color(0xFFFFC107)),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 30),
-                buildTextField(
-                  'Your Email',
-                  false,
-                  const Icon(Icons.email),
-                  emailController,
-                  null,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      'Forgot Password ?',
+                      style: TextStyle(fontSize: 18, color: Color(0xFFE0E0E0)),
+                    )
+                  ],
                 ),
-                buildSizedBox(0),
-                buildTextField(
-                  'Password',
-                  obscurePassword,
-                  const Icon(Icons.lock),
-                  passwordController,
-                  (bool newValue) {
-                    togglePasswordVisibility(newValue);
-                  },
-                ),
-                buildSizedBox(10),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          gradient: const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              Color.fromARGB(255, 197, 126, 205),
-                              Color.fromARGB(255, 173, 66, 102),
-                              Color.fromARGB(255, 220, 55, 189),
-                            ],
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'L o g i n',
-                              style: GoogleFonts.getFont('Roboto').copyWith(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontStyle: FontStyle.normal,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(right: 10, left: 10, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 5),
-                      Text(
-                        ' Or',
-                        style: TextStyle(
-                          color: Colors.grey[100],
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 14),
-                buildSocialButton(
-                  iconPath: 'assets/images/svgs/google.svg',
-                  text: 'Sign in with Google',
-                  onPressed: () async {
-                    final userCredential = await _signInWithGoogle();
-                    if (userCredential != null) {
-                      Navigator.pushNamed(context, '/home');
-                      print(
-                          'User signed in: ${userCredential.user!.displayName}');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Authentication Successful and Updated!\nUser signed in as ${userCredential.user!.displayName}',
-                          ),
-                        ),
-                      );
-                    } else {
-                      print('Sign in failed.');
-                    }
-                  },
-                ),
-                const SizedBox(height: 13),
-                buildSocialButton(
-                  iconPath: 'assets/images/svgs/apple.svg',
-                  text: 'Sign in with Apple',
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Sorry! This feature is currently unavailable.',
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 13),
-                buildSocialButton(
-                  iconPath: 'assets/images/svgs/finger.svg',
-                  text: 'Login using Biometric',
-                  onPressed: () {
-                    _authenticate(context);
-                  },
-                ),
-                const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Don\u0027t have an account ?',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/register');
-                        },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Forgot Password ?',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey[100],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ),
       ),

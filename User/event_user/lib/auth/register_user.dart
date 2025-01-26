@@ -1,16 +1,22 @@
 // ignore_for_file: unused_local_variable
+import 'package:event_user/widgets/socialIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:event_user/widgets/textformfield.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
   _RegisterPageState createState() => _RegisterPageState();
 }
+
+final _auth = FirebaseAuth.instance;
+final GoogleSignIn googleSignIn = GoogleSignIn();
 
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
@@ -21,6 +27,25 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() {
       obscurePassword = newValue;
     });
+  }
+
+  Future<UserCredential?> _signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+        return await _auth.signInWithCredential(credential);
+      }
+    } catch (error) {
+      print(error);
+    }
+    return null;
   }
 
   @override
@@ -91,6 +116,61 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                 ),
                 buildSizedBox(20),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 10, left: 10, bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 5),
+                      Text(
+                        ' Or',
+                        style: TextStyle(
+                          color: Colors.grey[100],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                buildSizedBox(20),
+                buildSocialButton(
+                  iconPath: 'assets/images/svgs/google.svg',
+                  text: 'Sign in with Google',
+                  onPressed: () async {
+                    final userCredential = await _signInWithGoogle();
+                    if (userCredential != null) {
+                      Navigator.pushNamed(context, '/home');
+                      print(
+                          'User signed in: ${userCredential.user!.displayName}');
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Authentication Successful and Updated!\nUser signed in as ${userCredential.user!.displayName}',
+                          ),
+                        ),
+                      );
+                    } else {
+                      print('Sign in failed.');
+                    }
+                  },
+                ),
+                const SizedBox(height: 13),
+                buildSocialButton(
+                  iconPath: 'assets/images/svgs/apple.svg',
+                  text: 'Sign in with Apple',
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Sorry! This feature is currently unavailable.',
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 35),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

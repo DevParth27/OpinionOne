@@ -1,6 +1,7 @@
 import 'package:event_user/auth/login_user.dart';
 import 'package:event_user/auth/register_user.dart';
-import 'package:event_user/intro/onboarding_screen.dart';
+import 'package:event_user/intro/splashScreem.dart';
+//import 'package:event_user/intro/onboarding_screen.dart';
 import 'package:event_user/pages/event_management/create_event.dart';
 import 'package:event_user/pages/event_management/event_details.dart';
 import 'package:event_user/pages/homepage.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Event Management App',
+      title: 'Bartr Opinion App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -33,14 +34,15 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => const OnBoardingScreen(),
         '/login': (context) => const LoginPage(),
-        '/register': (context) => const RegisterPage(),
+        'splash': (context) => const Splash(),
+        '/register': (context) => RegisterPage(),
         '/home': (context) => const HomePage(),
         '/eventdetails': (context) => const EventDetails(),
         '/createevent': (context) => const CreateEvent(),
         '/helpnsupport': (context) => const HelpAndSupportPage(),
         '/manageevents': (context) => const ManageEventsPage(),
       },
-      home: const OnBoardingScreen(),
+      home: const Splash(),
     );
   }
 }
