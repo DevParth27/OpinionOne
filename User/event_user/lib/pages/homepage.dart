@@ -1,4 +1,6 @@
+import 'package:event_user/models/predictions.dart';
 import 'package:event_user/pages/UserPage.dart';
+import 'package:event_user/pages/walletPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,7 +19,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(225.0),
         child: AppBar(
@@ -31,7 +33,7 @@ class HomePageState extends State<HomePage> {
                   // Conditionally show the title or search bar
                   if (!_isSearching)
                     const Text(
-                      'EventoFactor',
+                      'Bartr Opinion',
                       style: TextStyle(
                         fontSize: 29,
                         color: Colors.white,
@@ -71,7 +73,7 @@ class HomePageState extends State<HomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: const Color.fromARGB(255, 20, 20, 20),
+                          color: Colors.transparent,
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(2.0),
@@ -94,7 +96,7 @@ class HomePageState extends State<HomePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: const Color.fromARGB(255, 20, 20, 20),
+                          color: Colors.transparent,
                         ),
                         child: const Padding(
                           padding: EdgeInsets.all(2.0),
@@ -110,7 +112,7 @@ class HomePageState extends State<HomePage> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100),
-                      color: const Color.fromARGB(255, 20, 20, 20),
+                      color: Colors.transparent,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
@@ -140,7 +142,7 @@ class HomePageState extends State<HomePage> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Discover Events',
+                      'Ongoing Predictions',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -160,261 +162,62 @@ class HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.grey[900],
           elevation: 0,
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 15,
             ),
             Column(
               children: [
-                Container(
-                  height: 455,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 20, 20, 20),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          'assets/images/images_show/home_cards/card 1.jpg',
-                          fit: BoxFit.cover,
-                        ), // Replace with your image widget
-                      ),
-                      const SizedBox(
-                          width: 20), // Add some spacing between image and text
-                      // Text and dummy data take 1/4 of the card
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Alan Walker Music',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '12 - 14 Mar 2024',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 50),
-                                const Icon(Icons.location_on_outlined,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  'Nagpur, India',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                const Icon(Icons.person_outline,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '+73.2K',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 150),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/eventdetails');
-                                  },
-                                  child: Container(
-                                    height: 40,
-                                    width: 90,
-                                    decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 102, 77, 177),
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Center(
-                                        child: Text(
-                                          'Join',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 455,
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 20, 20, 20),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          'assets/images/images_show/mahic.jpg',
-                          fit: BoxFit.fill,
-                        ), // Replace with your image widget
-                      ),
-                      const SizedBox(
-                          width: 20), // Add some spacing between image and text
-                      // Text and dummy data take 1/4 of the card
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Magical Show',
-                                  style: TextStyle(
-                                    fontSize: 26,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                const Icon(
-                                  Icons.calendar_today_outlined,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '20 - 22 Dec 2024',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 50),
-                                const Icon(Icons.location_on_outlined,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  'Nagpur, India',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 20),
-                            Row(
-                              children: [
-                                const Icon(Icons.person_outline,
-                                    color: Colors.white),
-                                const SizedBox(width: 5),
-                                Text(
-                                  '+2.2K',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey[400],
-                                  ),
-                                ),
-                                const SizedBox(width: 150),
-                                Container(
-                                  height: 40,
-                                  width: 90,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 102, 77, 177),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(5.0),
-                                    child: Center(
-                                      child: Text(
-                                        'Join',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                Column(
+                  children: [
+                    PredictionCard(
+                      title: 'Bitcoin Price Prediction',
+                      description: 'Will Bitcoin reach \$100k by end of 2024?',
+                      endDate: '12/31/2024',
+                      participants: '156',
+                      price: '\$25,000',
+                    ),
+                    PredictionCard(
+                      title: 'Ethereum Price Prediction',
+                      description: 'Will Ethereum cross \$10k by mid-2024?',
+                      endDate: '06/30/2024',
+                      participants: '200',
+                      price: '\$15,000',
+                    ),
+                    PredictionCard(
+                      title: 'Bitcoin Price Prediction',
+                      description: 'Will Bitcoin reach \$100k by end of 2024?',
+                      endDate: '12/31/2024',
+                      participants: '156',
+                      price: '\$25,000',
+                    ),
+                    PredictionCard(
+                      title: 'Bitcoin Price Prediction',
+                      description: 'Will Bitcoin reach \$100k by end of 2024?',
+                      endDate: '12/31/2024',
+                      participants: '156',
+                      price: '\$25,000',
+                    ),
+                  ],
                 ),
               ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/createevent');
-        },
-        backgroundColor: Colors.grey[300],
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushNamed(context, '/createevent');
+      //   },
+      //   backgroundColor: Colors.grey[300],
+      //   child: const Icon(Icons.add),
+      // ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20),
         height: size.width * .155,
@@ -435,6 +238,17 @@ class HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: size.width * .024),
           itemBuilder: (context, index) => InkWell(
             onTap: () {
+              if (index == 1) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const walletPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
               if (index == 3) {
                 // Check if the settings icon is clicked
                 Navigator.push(
@@ -494,7 +308,7 @@ class HomePageState extends State<HomePage> {
 
   List<IconData> listOfIcons = [
     Icons.home_rounded,
-    Icons.calendar_month_rounded,
+    Icons.wallet,
     Icons.bookmark_rounded,
     Icons.person_outline_rounded,
   ];
@@ -502,7 +316,7 @@ class HomePageState extends State<HomePage> {
 
 class HorizontalCalendar extends StatelessWidget {
   final List<DateTime> dates = List.generate(
-    6,
+    5,
     (index) => DateTime.now().add(Duration(days: index)),
   );
 

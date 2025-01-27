@@ -9,6 +9,7 @@ import 'package:event_user/pages/user_pages/edit_profile.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
 import 'package:event_user/pages/user_pages/manageEvents.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
+import 'package:event_user/pages/walletPage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,11 +40,15 @@ class _UserPageState extends State<UserPage> {
     });
   }
 
+  var currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
+        shadowColor: Colors.grey[900],
         toolbarHeight: 30,
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -58,7 +63,7 @@ class _UserPageState extends State<UserPage> {
             );
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey[900],
         title: const Text(
           '',
           style: TextStyle(color: Colors.white),
@@ -139,30 +144,30 @@ class _UserPageState extends State<UserPage> {
                   padding: const EdgeInsets.symmetric(
                       vertical: 12.0, horizontal: 16.0),
                   children: [
-                    SettingsItem(
-                      icon: Icons.event,
-                      title: 'Manage Events',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ManageEventsPage(),
-                          ),
-                        );
-                      },
-                    ),
-                    SettingsItem(
-                      icon: Icons.online_prediction_rounded,
-                      title: 'Confirmation History',
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BookingHistoryPage(),
-                          ),
-                        );
-                      },
-                    ),
+                    // SettingsItem(
+                    //   icon: Icons.event,
+                    //   title: 'Manage Events',
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const ManageEventsPage(),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
+                    // SettingsItem(
+                    //   icon: Icons.online_prediction_rounded,
+                    //   title: 'Confirmation History',
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => BookingHistoryPage(),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                     SettingsItem(
                       icon: Icons.card_giftcard,
                       title: 'Upgrade Membership',
@@ -216,7 +221,7 @@ class _UserPageState extends State<UserPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Copyright © 2024. All rights reserved.',
+                          'Copyright © 2025. All rights reserved.',
                           style: TextStyle(color: Colors.grey, fontSize: 16),
                         ),
                       ],
@@ -228,6 +233,102 @@ class _UserPageState extends State<UserPage> {
           ),
         ),
       ),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(20),
+        height: size.width * .155,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05), // Adjust opacity here
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.15),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              if (index == 0) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 1) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const walletPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 2) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+            },
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1500),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  margin: EdgeInsets.only(
+                    bottom: index == currentIndex ? 0 : size.width * .029,
+                    right: size.width * .0422,
+                    left: size.width * .0422,
+                  ),
+                  width: size.width * .128,
+                  height: index == currentIndex ? size.width * .014 : 0,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5), // Adjust opacity here
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(10),
+                    ),
+                  ),
+                ),
+                Icon(
+                  listOfIcons[index],
+                  size: size.width * .076,
+                  color: index == currentIndex
+                      ? Colors.white
+                      : const Color.fromARGB(95, 137, 133, 133),
+                ),
+                SizedBox(height: size.width * .03),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
+
+  List<IconData> listOfIcons = [
+    Icons.home_rounded,
+    Icons.wallet,
+    Icons.bookmark_rounded,
+    Icons.person_outline_rounded,
+  ];
 }

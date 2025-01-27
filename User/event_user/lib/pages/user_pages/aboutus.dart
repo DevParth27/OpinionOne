@@ -7,7 +7,7 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
         child: Column(
@@ -20,7 +20,7 @@ class AboutUsPage extends StatelessWidget {
             _buildSectionTitle('About Us'),
             const SizedBox(height: 10.0),
             _buildDescriptionText(
-              'Eventify is a cutting-edge event management app designed to simplify the process of organizing and managing events of all sizes. Our mission is to empower event organizers with powerful tools and resources to create memorable experiences for their attendees.',
+              'At Bartar Catalyst Group (BCG), we empower startups and established companies by offering tailored consulting and strategic solutions. From startup incubations to corporate growth strategies, we are your trusted partner in navigating the complexities of modern business.',
             ),
             const SizedBox(height: 30.0),
             _buildSectionTitle('Contact Us'),
@@ -58,12 +58,12 @@ class AboutUsPage extends StatelessWidget {
     return const Column(
       children: [
         CircleAvatar(
-          radius: 80.0,
+          radius: 50.0,
           backgroundImage: AssetImage('assets/images/images_pages/eventl.jpg'),
         ),
         SizedBox(height: 20.0),
         Text(
-          'EventoFactor',
+          'Bartr Opinion',
           style: TextStyle(
             fontSize: 28.0,
             fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class AboutUsPage extends StatelessWidget {
         ),
         SizedBox(height: 10.0),
         Text(
-          'Your Ultimate Event Management Partner',
+          'Your Trust is our responsibility',
           style: TextStyle(
             fontSize: 18.0,
             color: Colors.grey,
@@ -110,7 +110,7 @@ class AboutUsPage extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.email, color: Colors.white),
           title: Text(
-            'Email: info@eventofactor.com',
+            'Email: support@bartrOpinion.com',
             style: TextStyle(color: Colors.grey[300]),
           ),
           onTap: () {
@@ -121,6 +121,16 @@ class AboutUsPage extends StatelessWidget {
           leading: const Icon(Icons.phone, color: Colors.white),
           title: Text(
             'Phone: +91 9511827732',
+            style: TextStyle(color: Colors.grey[300]),
+          ),
+          onTap: () {
+            // Handle phone tap
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.location_on_sharp, color: Colors.white),
+          title: Text(
+            'Address: Trimurtee Nagar, Nagpur, Maharashtra 440046',
             style: TextStyle(color: Colors.grey[300]),
           ),
           onTap: () {
@@ -143,17 +153,6 @@ class AboutUsPage extends StatelessWidget {
           ),
           onTap: () {
             // Handle version tap
-          },
-        ),
-        ListTile(
-          leading: Image.asset('assets/images/images_pages/update.png',
-              color: Colors.white, width: 26, height: 26),
-          title: Text(
-            'Last Updated: AUG 15, 2024',
-            style: TextStyle(color: Colors.grey[300]),
-          ),
-          onTap: () {
-            // Handle update info tap
           },
         ),
       ],

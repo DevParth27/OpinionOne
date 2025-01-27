@@ -7,6 +7,7 @@ import 'package:event_user/pages/event_management/event_details.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
 import 'package:event_user/pages/user_pages/manageEvents.dart';
+import 'package:event_user/pages/walletPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,9 @@ class MyApp extends StatelessWidget {
         // '/': (context) => const OnBoardingScreen(),
         '/login': (context) => const LoginPage(),
         'splash': (context) => const Splash(),
-        '/register': (context) => RegisterPage(),
+        '/register': (context) => const RegisterPage(),
         '/home': (context) => const HomePage(),
+        '/wallet': (context) => const walletPage(),
         '/eventdetails': (context) => const EventDetails(),
         '/createevent': (context) => const CreateEvent(),
         '/helpnsupport': (context) => const HelpAndSupportPage(),

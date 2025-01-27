@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 126),
+                const SizedBox(height: 70),
                 const Row(
                   children: [
                     SizedBox(width: 22),

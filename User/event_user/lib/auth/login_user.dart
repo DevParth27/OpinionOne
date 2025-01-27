@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable, unused_field, use_build_context_synchronously, avoid_print
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:event_user/widgets/socialIcon.dart';
 import 'package:event_user/widgets/textformfield.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -111,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 150),
+              const SizedBox(height: 100),
               const Row(
                 children: [
                   SizedBox(width: 22),
@@ -139,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               buildTextField(
                 'Your Email',
                 false,
@@ -202,67 +201,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 14,
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       const SizedBox(width: 5),
-              //       Text(
-              //         ' Or',
-              //         style: TextStyle(
-              //           color: Colors.grey[100],
-              //           fontSize: 20,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // const SizedBox(height: 14),
-              // buildSocialButton(
-              //   iconPath: 'assets/images/svgs/google.svg',
-              //   text: 'Sign in with Google',
-              //   onPressed: () async {
-              //     final userCredential = await _signInWithGoogle();
-              //     if (userCredential != null) {
-              //       Navigator.pushNamed(context, '/home');
-              //       print(
-              //           'User signed in: ${userCredential.user!.displayName}');
-              //       ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(
-              //           content: Text(
-              //             'Authentication Successful and Updated!\nUser signed in as ${userCredential.user!.displayName}',
-              //           ),
-              //         ),
-              //       );
-              //     } else {
-              //       print('Sign in failed.');
-              //     }
-              //   },
-              // ),
-              // const SizedBox(height: 13),
-              // buildSocialButton(
-              //   iconPath: 'assets/images/svgs/apple.svg',
-              //   text: 'Sign in with Apple',
-              //   onPressed: () {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       const SnackBar(
-              //         content: Text(
-              //           'Sorry! This feature is currently unavailable.',
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
-              // const SizedBox(height: 13),
-              // buildSocialButton(
-              //   iconPath: 'assets/images/svgs/finger.svg',
-              //   text: 'Login using Biometric',
-              //   onPressed: () {
-              //     _authenticate(context);
-              //   },
-              // ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Row(
@@ -300,10 +239,94 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Divider(
+                height: 2,
+                thickness: 1,
+                color: Colors.grey[400],
+                indent: 10,
+                endIndent: 10,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildCard('Active Predictions', '24',
+                              Icons.show_chart, Colors.blue),
+                        ),
+                        const SizedBox(
+                            width: 16), // Space between the two cards
+                        Expanded(
+                          child: _buildCard('Total Users', '1.2k', Icons.groups,
+                              Colors.green),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16), // Space between rows
+                    _buildCard('Trading Volume', '\$45.3k', Icons.trending_up,
+                        Colors.purple),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCard(
+      String title, String value, IconData icon, Color iconColor) {
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 218, 212, 212),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 4), // Shadow position
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[700],
+                ),
+              ),
+              Icon(
+                icon,
+                color: iconColor,
+              ),
+            ],
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

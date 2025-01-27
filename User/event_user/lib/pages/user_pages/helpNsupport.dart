@@ -41,7 +41,7 @@ class HelpAndSupportPage extends StatelessWidget {
             _buildFAQCard(
               question: 'How can I contact customer support?',
               answer:
-                  'You can reach out to our customer support team via the "Help and Support" section or by emailing info@eventofactor.com.',
+                  'You can reach out to our customer support team via the "Help and Support" section or by emailing support@bartrOpinion.com.',
             ),
             _buildFAQCard(
               question: 'How do I update my profile information?',
@@ -54,7 +54,7 @@ class HelpAndSupportPage extends StatelessWidget {
             _buildContactOption(
               icon: Icons.email,
               title: 'Email Us',
-              subtitle: 'info@eventofactor.com',
+              subtitle: 'support@bartrOpinion.com',
               onTap: () {
                 // Add email action
               },
