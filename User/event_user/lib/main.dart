@@ -8,6 +8,7 @@ import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
 import 'package:event_user/pages/user_pages/manageEvents.dart';
 import 'package:event_user/pages/walletPage.dart';
+import 'package:event_user/waitlistPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => const OnBoardingScreen(),
         '/login': (context) => const LoginPage(),
+        '/waitlist': (context) => const WaitlistPage(),
         'splash': (context) => const Splash(),
         '/register': (context) => const RegisterPage(),
         '/home': (context) => const HomePage(),

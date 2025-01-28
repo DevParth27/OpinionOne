@@ -141,7 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () async {
                     final userCredential = await _signInWithGoogle();
                     if (userCredential != null) {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.pushNamed(context, '/waitlist');
                       print(
                           'User signed in: ${userCredential.user!.displayName}');
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -205,7 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/home');
+                    Navigator.pushNamed(context, '/waitlist');
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
