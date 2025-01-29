@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class UpgradeMembershipScreen extends StatelessWidget {
-  const UpgradeMembershipScreen({super.key});
+class TradingDetailsScreen extends StatelessWidget {
+  const TradingDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +15,12 @@ class UpgradeMembershipScreen extends StatelessWidget {
           icon:
               const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
           onPressed: () {
-            // Navigate to home page
-            Navigator.pop(
-                context); // Example: Navigating back to the previous screen
+            Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.black,
         title: const Text(
-          'Upgrade Membership',
+          'Trading Account Tiers',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -32,42 +30,42 @@ class UpgradeMembershipScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FreeCard(
-                title: 'Free Membership',
-                price: '\$0.00/month',
+                title: 'Basic Account',
+                minDeposit: '\$0 Deposit',
                 features: [
-                  'Basic Features',
-                  '24/7 support',
-                  'Create upto 3 events per month',
+                  'Access to market data',
+                  'Standard trading fees',
+                  'Basic customer support',
                 ],
               ),
               SizedBox(height: 20),
-              MembershipCard(
-                title: 'Basic Membership',
-                price: '\$2.99/month',
+              TradingCard(
+                title: 'Silver Account',
+                minDeposit: '\$500 Minimum Deposit',
                 features: [
-                  'can create upto 5 events per month',
-                  'Additition Features will be available',
-                  'Limited support',
+                  'Lower trading fees',
+                  'Priority customer support',
+                  'Basic risk analysis tools',
                 ],
               ),
               SizedBox(height: 20),
-              MembershipCard(
-                title: 'Standard Membership',
-                price: '\$5.99/month',
+              TradingCard(
+                title: 'Gold Account',
+                minDeposit: '\$5,000 Minimum Deposit',
                 features: [
-                  'Access to advanced features',
-                  'Priority support',
-                  'Can create upto 10 events per month',
+                  'Exclusive market insights',
+                  'Faster withdrawals',
+                  'Advanced risk analysis tools',
                 ],
               ),
               SizedBox(height: 20),
-              MembershipCard(
-                title: 'Premium Membership',
-                price: '\$10.99/month',
+              TradingCard(
+                title: 'Platinum Account',
+                minDeposit: '\$25,000 Minimum Deposit',
                 features: [
-                  'Access to premium & extra features',
-                  '24/7 premium support',
-                  'Unlimited Event Creator',
+                  'Dedicated account manager',
+                  'Zero trading fees',
+                  'Personalized investment strategies',
                 ],
               ),
             ],
@@ -78,15 +76,15 @@ class UpgradeMembershipScreen extends StatelessWidget {
   }
 }
 
-class MembershipCard extends StatelessWidget {
+class TradingCard extends StatelessWidget {
   final String title;
-  final String price;
+  final String minDeposit;
   final List<String> features;
 
-  const MembershipCard({
+  const TradingCard({
     super.key,
     required this.title,
-    required this.price,
+    required this.minDeposit,
     required this.features,
   });
 
@@ -111,7 +109,7 @@ class MembershipCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              price,
+              minDeposit,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[300],
@@ -174,13 +172,13 @@ class MembershipCard extends StatelessWidget {
 
 class FreeCard extends StatelessWidget {
   final String title;
-  final String price;
+  final String minDeposit;
   final List<String> features;
 
   const FreeCard({
     super.key,
     required this.title,
-    required this.price,
+    required this.minDeposit,
     required this.features,
   });
 
@@ -189,7 +187,6 @@ class FreeCard extends StatelessWidget {
     return Card(
       color: const Color.fromARGB(255, 20, 20, 20),
       margin: const EdgeInsets.symmetric(horizontal: 20),
-      surfaceTintColor: const Color.fromARGB(255, 66, 199, 30),
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -206,7 +203,7 @@ class FreeCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              price,
+              minDeposit,
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[300],

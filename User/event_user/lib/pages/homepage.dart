@@ -1,7 +1,9 @@
 import 'package:event_user/models/predictions.dart';
 import 'package:event_user/pages/UserPage.dart';
+import 'package:event_user/pages/user_pages/predictionsdetails.dart';
 import 'package:event_user/pages/walletPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -166,43 +168,39 @@ class HomePageState extends State<HomePage> {
           elevation: 0,
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Column(
               children: [
                 Column(
                   children: [
-                    PredictionCard(
-                      title: 'Bitcoin Price Prediction',
-                      description: 'Will Bitcoin reach \$100k by end of 2024?',
-                      endDate: '12/31/2024',
-                      participants: '156',
-                      price: '\$25,000',
-                    ),
-                    PredictionCard(
-                      title: 'Ethereum Price Prediction',
-                      description: 'Will Ethereum cross \$10k by mid-2024?',
-                      endDate: '06/30/2024',
-                      participants: '200',
-                      price: '\$15,000',
-                    ),
-                    PredictionCard(
-                      title: 'Bitcoin Price Prediction',
-                      description: 'Will Bitcoin reach \$100k by end of 2024?',
-                      endDate: '12/31/2024',
-                      participants: '156',
-                      price: '\$25,000',
-                    ),
-                    PredictionCard(
-                      title: 'Bitcoin Price Prediction',
-                      description: 'Will Bitcoin reach \$100k by end of 2024?',
-                      endDate: '12/31/2024',
-                      participants: '156',
-                      price: '\$25,000',
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const PredictionDetailsPage(
+                              description:
+                                  "Will India Win the 4th T20 Match against England?",
+                              endDate: "05/02/2025",
+                              participants: 112,
+                              price: "2x",
+                            ),
+                          ),
+                        );
+                      },
+                      child: const PredictionCard(
+                        title: "Cricket Match Prediction",
+                        description:
+                            "Will India Win the 4th T20 Match against England?",
+                        endDate: "05/02/2025",
+                        participants: '112',
+                        price: "2x Money",
+                      ),
                     ),
                   ],
                 ),
@@ -211,13 +209,6 @@ class HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.pushNamed(context, '/createevent');
-      //   },
-      //   backgroundColor: Colors.grey[300],
-      //   child: const Icon(Icons.add),
-      // ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(20),
         height: size.width * .155,
@@ -238,12 +229,28 @@ class HomePageState extends State<HomePage> {
           padding: EdgeInsets.symmetric(horizontal: size.width * .024),
           itemBuilder: (context, index) => InkWell(
             onTap: () {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
               if (index == 1) {
                 // Check if the settings icon is clicked
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const walletPage()),
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
                 );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 2) {
               } else {
                 setState(() {
                   currentIndex = index;

@@ -4,10 +4,8 @@ import 'package:event_user/models/logout_item.dart';
 import 'package:event_user/models/settings_item.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/user_pages/aboutus.dart';
-import 'package:event_user/pages/user_pages/bookingHistoryPage.dart';
 import 'package:event_user/pages/user_pages/edit_profile.dart';
 import 'package:event_user/pages/user_pages/helpNsupport.dart';
-import 'package:event_user/pages/user_pages/manageEvents.dart';
 import 'package:event_user/pages/user_pages/upgrade_membership_screen.dart';
 import 'package:event_user/pages/walletPage.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +91,7 @@ class _UserPageState extends State<UserPage> {
               ),
               const SizedBox(height: 22),
               Text(
-                "Welcome, ${_firstName != null && _lastName != null ? ' $_firstName $_lastName' : ' NULL'}",
+                "Welcome, ${_firstName != null && _lastName != null ? ' $_firstName $_lastName' : ' User'}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 23,
@@ -175,8 +173,7 @@ class _UserPageState extends State<UserPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                const UpgradeMembershipScreen(),
+                            builder: (context) => const TradingDetailsScreen(),
                           ),
                         );
                       },
@@ -254,7 +251,6 @@ class _UserPageState extends State<UserPage> {
           itemBuilder: (context, index) => InkWell(
             onTap: () {
               if (index == 0) {
-                // Check if the settings icon is clicked
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const HomePage()),
@@ -268,7 +264,7 @@ class _UserPageState extends State<UserPage> {
                 // Check if the settings icon is clicked
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const walletPage()),
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
                 );
               } else {
                 setState(() {
@@ -276,6 +272,17 @@ class _UserPageState extends State<UserPage> {
                 });
               }
               if (index == 2) {
+                // Check if the settings icon is clicked
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const UserPage()),
+                // );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 3) {
                 // Check if the settings icon is clicked
                 Navigator.push(
                   context,
