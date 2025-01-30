@@ -24,6 +24,30 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final String? prefilledEmail =
+        ModalRoute.of(context)?.settings.arguments as String?;
+    if (prefilledEmail != null) {
+      emailController.text = prefilledEmail;
+    }
+  }
+
+  Future<void> _login() async {
+    try {
+      await _auth.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      Navigator.pushNamed(context, '/home');
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login Failed: $e')),
+      );
+    }
+  }
+
   void togglePasswordVisibility(bool newValue) {
     setState(() {
       obscurePassword = newValue;
@@ -159,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
               buildSizedBox(10),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/home');
+                  _login();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),

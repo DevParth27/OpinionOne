@@ -1,3 +1,6 @@
+import 'package:event_user/pages/homepage.dart';
+import 'package:event_user/pages/userPage.dart';
+import 'package:event_user/pages/user_pages/development.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +13,8 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   double availableBalance = 0.0;
-  List<Map<String, dynamic>> transactionHistory = [];
+  int currentIndex = 0;
+  List<Map<String, Object>> transactionHistory = [];
   final TextEditingController _amountController = TextEditingController();
 
   static const String _balanceKey = 'availableBalance';
@@ -38,21 +42,23 @@ class _WalletPageState extends State<WalletPage> {
         _transactionKey, _encodeTransactionHistory(transactionHistory));
   }
 
-  List<Map<String, dynamic>> _parseTransactionHistory(
+  /// Fix: Ensure parsing returns `List<Map<String, Object>>` instead of `List<Map<String, dynamic>>`
+  List<Map<String, Object>> _parseTransactionHistory(
       List<String>? transactions) {
     if (transactions == null) return [];
     return transactions.map((transaction) {
       final parts = transaction.split('|');
       return {
         'type': parts[0],
-        'amount': double.parse(parts[1]),
+        'amount': double.parse(parts[1]), // Ensure amount is a double
         'date': parts[2]
       };
     }).toList();
   }
 
+  /// Fix: Ensure only `List<String>` is stored in `SharedPreferences`
   List<String> _encodeTransactionHistory(
-      List<Map<String, dynamic>> transactions) {
+      List<Map<String, Object>> transactions) {
     return transactions.map((transaction) {
       return '${transaction['type']}|${transaction['amount']}|${transaction['date']}';
     }).toList();
@@ -94,6 +100,7 @@ class _WalletPageState extends State<WalletPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -172,12 +179,12 @@ class _WalletPageState extends State<WalletPage> {
                             ? Colors.green
                             : Colors.red,
                       ),
-                      title: Text(transaction['type'],
+                      title: Text(transaction['type'] as String,
                           style: const TextStyle(color: Colors.white)),
-                      subtitle: Text(transaction['date'],
+                      subtitle: Text(transaction['date'] as String,
                           style: const TextStyle(color: Colors.grey)),
                       trailing: Text(
-                        '₹${transaction['amount'].toStringAsFixed(2)}',
+                        '₹${transaction['amount'].toString()}',
                         style: TextStyle(
                           color: transaction['type'] == 'Deposit'
                               ? Colors.green
@@ -192,6 +199,112 @@ class _WalletPageState extends State<WalletPage> {
           ],
         ),
       ),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(20),
+        height: size.width * .155,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05), // Adjust opacity here
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.15),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 1) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UnderDevelopmentPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 3) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+            },
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1500),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  margin: EdgeInsets.only(
+                    bottom: index == currentIndex ? 0 : size.width * .029,
+                    right: size.width * .0422,
+                    left: size.width * .0422,
+                  ),
+                  width: size.width * .128,
+                  height: index == currentIndex ? size.width * .014 : 0,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5), // Adjust opacity here
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(10),
+                    ),
+                  ),
+                ),
+                Icon(
+                  listOfIcons[index],
+                  size: size.width * .076,
+                  color: index == currentIndex
+                      ? Colors.white
+                      : const Color.fromARGB(95, 137, 133, 133),
+                ),
+                SizedBox(height: size.width * .03),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
+
+  List<IconData> listOfIcons = [
+    Icons.home_rounded,
+    Icons.wallet,
+    Icons.bookmark_rounded,
+    Icons.person_outline_rounded,
+  ];
 }

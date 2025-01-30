@@ -2,7 +2,7 @@
 import 'package:event_user/widgets/socialIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:event_user/widgets/textformfield.dart';
-import 'package:flutter/widgets.dart';
+import 'package:event_user/pages/user_pages/termsCond.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -21,6 +21,8 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
   bool obscurePassword = true;
 
   void togglePasswordVisibility(bool newValue) {
@@ -46,6 +48,30 @@ class _RegisterPageState extends State<RegisterPage> {
       print(error);
     }
     return null;
+  }
+
+  Future<void> _registerWithEmail() async {
+    try {
+      if (passwordController.text == confirmPasswordController.text) {
+        await _auth.createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Registration Successful! Please log in.')),
+        );
+        Navigator.pushNamed(context, '/login', arguments: emailController.text);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Passwords do not match!')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Registration Failed: $e')),
+      );
+    }
   }
 
   @override
@@ -110,7 +136,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   'Confirm Password',
                   obscurePassword,
                   const Icon(Icons.lock),
-                  passwordController,
+                  confirmPasswordController,
                   (bool newValue) {
                     togglePasswordVisibility(newValue);
                   },
@@ -205,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/waitlist');
+                    _registerWithEmail();
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -282,53 +308,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-}
-
-void showTermsAndConditionsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text(
-          'Terms And Conditions',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-          ),
-        ),
-        content: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Text(
-            'By using this app, you agree to the following terms and conditions:\n\n'
-            '1. You must be at least 16 years old to use this app.\n\n'
-            '2. You agree not to share your account credentials with anyone else.\n\n'
-            '3. You are solely responsible for maintaining the confidentiality of your account.\n\n'
-            '4. You agree to use the app for lawful purposes only.\n\n'
-            '5. We reserve the right to suspend or terminate your account if you violate these terms.\n\n'
-            'Please review our privacy policy for information on how we collect, use, and protect your data.',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text(
-              'Close this',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
-          ),
-        ],
-      );
-    },
-  );
 }
