@@ -1,8 +1,8 @@
+import 'package:event_user/auth/checkPayment.dart';
 import 'package:event_user/pages/homepage.dart';
 import 'package:event_user/pages/userPage.dart';
 import 'package:event_user/pages/walletPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class UnderDevelopmentPage extends StatefulWidget {
   const UnderDevelopmentPage({super.key});
@@ -91,11 +91,18 @@ class _UnderDevelopmentPageState extends State<UnderDevelopmentPage> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
-                    'Notify Me',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigate to CheckPayment page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CheckPayment()),
+                      );
+                    },
+                    child: const Text('Go to Payment'),
                   ),
-                ),
+                )
               ],
             ),
           ),

@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:event_user/auth/checkPayment.dart';
 import 'package:event_user/models/predictions.dart';
 import 'package:event_user/pages/UserPage.dart';
 import 'package:event_user/pages/user_pages/development.dart';
 import 'package:event_user/pages/user_pages/predictionsdetails.dart';
 import 'package:event_user/pages/walletPage.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,12 +21,51 @@ class HomePageState extends State<HomePage> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
   var currentIndex = 0;
-  final _razorpay = Razorpay();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
     _checkFirstTime();
+    _checkPaymentStatus();
+  }
+
+  Future<void> _checkPaymentStatus() async {
+    // Get the current user
+    User? user = _auth.currentUser;
+    if (user == null) {
+      // If the user is not logged in, redirect to login page or handle accordingly
+      return;
+    }
+
+    // Fetch the payment status from Firestore
+    QuerySnapshot paymentSnapshot = await _firestore
+        .collection('payments')
+        .where('userEmail', isEqualTo: user.email)
+        .orderBy('timestamp', descending: true)
+        .limit(1)
+        .get();
+
+    if (paymentSnapshot.docs.isNotEmpty) {
+      // Check the latest payment status
+      String paymentStatus = paymentSnapshot.docs.first['paymentDone'];
+      if (paymentStatus == 'no') {
+        // Redirect to the payment page if payment is not done
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const CheckPayment()),
+          );
+        });
+      }
+    } else {
+      // If no payment record exists, assume payment is not done
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const CheckPayment()),
+        );
+      });
+    }
   }
 
   Future<void> _checkFirstTime() async {
