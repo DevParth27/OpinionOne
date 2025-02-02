@@ -101,199 +101,203 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Wallet', style: TextStyle(color: Colors.white)),
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
         backgroundColor: Colors.black,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Available Balance',
-                style: TextStyle(fontSize: 18, color: Colors.grey)),
-            Text('₹${availableBalance.toStringAsFixed(2)}',
-                style: const TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.greenAccent)),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _amountController,
-              decoration: InputDecoration(
-                labelText: 'Enter Amount',
-                labelStyle: const TextStyle(color: Colors.grey),
-                filled: true,
-                fillColor: Colors.grey[850],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+        appBar: AppBar(
+          title: const Text('Wallet', style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.black,
+          elevation: 0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Available Balance',
+                  style: TextStyle(fontSize: 18, color: Colors.grey)),
+              Text('₹${availableBalance.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.greenAccent)),
+              const SizedBox(height: 20),
+              TextField(
+                controller: _amountController,
+                decoration: InputDecoration(
+                  labelText: 'Enter Amount',
+                  labelStyle: const TextStyle(color: Colors.grey),
+                  filled: true,
+                  fillColor: Colors.grey[850],
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
+                keyboardType: TextInputType.number,
+                style: const TextStyle(color: Colors.white),
               ),
-              keyboardType: TextInputType.number,
-              style: const TextStyle(color: Colors.white),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: _addFunds,
-                    child: const Text('Deposit',
-                        style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green),
+                      onPressed: _addFunds,
+                      child: const Text('Deposit',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: ElevatedButton(
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                    onPressed: _withdrawFunds,
-                    child: const Text('Withdraw',
-                        style: TextStyle(color: Colors.white)),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: ElevatedButton(
+                      style:
+                          ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                      onPressed: _withdrawFunds,
+                      child: const Text('Withdraw',
+                          style: TextStyle(color: Colors.white)),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Text('Transaction History',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white)),
-            Expanded(
-              child: ListView(
-                children: transactionHistory.map((transaction) {
-                  return Card(
-                    color: Colors.grey[900],
-                    child: ListTile(
-                      leading: Icon(
-                        transaction['type'] == 'Deposit'
-                            ? Icons.arrow_downward
-                            : Icons.arrow_upward,
-                        color: transaction['type'] == 'Deposit'
-                            ? Colors.green
-                            : Colors.red,
-                      ),
-                      title: Text(transaction['type'] as String,
-                          style: const TextStyle(color: Colors.white)),
-                      subtitle: Text(transaction['date'] as String,
-                          style: const TextStyle(color: Colors.grey)),
-                      trailing: Text(
-                        '₹${transaction['amount'].toString()}',
-                        style: TextStyle(
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text('Transaction History',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+              Expanded(
+                child: ListView(
+                  children: transactionHistory.map((transaction) {
+                    return Card(
+                      color: Colors.grey[900],
+                      child: ListTile(
+                        leading: Icon(
+                          transaction['type'] == 'Deposit'
+                              ? Icons.arrow_downward
+                              : Icons.arrow_upward,
                           color: transaction['type'] == 'Deposit'
                               ? Colors.green
                               : Colors.red,
                         ),
+                        title: Text(transaction['type'] as String,
+                            style: const TextStyle(color: Colors.white)),
+                        subtitle: Text(transaction['date'] as String,
+                            style: const TextStyle(color: Colors.grey)),
+                        trailing: Text(
+                          '₹${transaction['amount'].toString()}',
+                          style: TextStyle(
+                            color: transaction['type'] == 'Deposit'
+                                ? Colors.green
+                                : Colors.red,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          margin: const EdgeInsets.all(20),
+          height: size.width * .155,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.05), // Adjust opacity here
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(.15),
+                blurRadius: 30,
+                offset: const Offset(0, 10),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: ListView.builder(
+            itemCount: 4,
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+            itemBuilder: (context, index) => InkWell(
+              onTap: () {
+                if (index == 0) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                } else {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                }
+                if (index == 1) {
+                  // Check if the settings icon is clicked
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WalletPage()),
+                  );
+                } else {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                }
+                if (index == 2) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const UnderDevelopmentPage()),
+                  );
+                } else {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                }
+                if (index == 3) {
+                  // Check if the settings icon is clicked
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const UserPage()),
+                  );
+                } else {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                }
+              },
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 1500),
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    margin: EdgeInsets.only(
+                      bottom: index == currentIndex ? 0 : size.width * .029,
+                      right: size.width * .0422,
+                      left: size.width * .0422,
+                    ),
+                    width: size.width * .128,
+                    height: index == currentIndex ? size.width * .014 : 0,
+                    decoration: BoxDecoration(
+                      color:
+                          Colors.white.withOpacity(0.5), // Adjust opacity here
+                      borderRadius: const BorderRadius.vertical(
+                        bottom: Radius.circular(10),
                       ),
                     ),
-                  );
-                }).toList(),
+                  ),
+                  Icon(
+                    listOfIcons[index],
+                    size: size.width * .076,
+                    color: index == currentIndex
+                        ? Colors.white
+                        : const Color.fromARGB(95, 137, 133, 133),
+                  ),
+                  SizedBox(height: size.width * .03),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(20),
-        height: size.width * .155,
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.05), // Adjust opacity here
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(.15),
-              blurRadius: 30,
-              offset: const Offset(0, 10),
-            ),
-          ],
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: ListView.builder(
-          itemCount: 4,
-          scrollDirection: Axis.horizontal,
-          padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-          itemBuilder: (context, index) => InkWell(
-            onTap: () {
-              if (index == 0) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomePage()),
-                );
-              } else {
-                setState(() {
-                  currentIndex = index;
-                });
-              }
-              if (index == 1) {
-                // Check if the settings icon is clicked
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const WalletPage()),
-                );
-              } else {
-                setState(() {
-                  currentIndex = index;
-                });
-              }
-              if (index == 2) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UnderDevelopmentPage()),
-                );
-              } else {
-                setState(() {
-                  currentIndex = index;
-                });
-              }
-              if (index == 3) {
-                // Check if the settings icon is clicked
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UserPage()),
-                );
-              } else {
-                setState(() {
-                  currentIndex = index;
-                });
-              }
-            },
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 1500),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                  margin: EdgeInsets.only(
-                    bottom: index == currentIndex ? 0 : size.width * .029,
-                    right: size.width * .0422,
-                    left: size.width * .0422,
-                  ),
-                  width: size.width * .128,
-                  height: index == currentIndex ? size.width * .014 : 0,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.5), // Adjust opacity here
-                    borderRadius: const BorderRadius.vertical(
-                      bottom: Radius.circular(10),
-                    ),
-                  ),
-                ),
-                Icon(
-                  listOfIcons[index],
-                  size: size.width * .076,
-                  color: index == currentIndex
-                      ? Colors.white
-                      : const Color.fromARGB(95, 137, 133, 133),
-                ),
-                SizedBox(height: size.width * .03),
-              ],
             ),
           ),
         ),

@@ -167,7 +167,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () async {
                     final userCredential = await _signInWithGoogle();
                     if (userCredential != null) {
-                      Navigator.pushNamed(context, '/waitlist');
+                      Navigator.pushNamed(context, '/home');
                       print(
                           'User signed in: ${userCredential.user!.displayName}');
                       ScaffoldMessenger.of(context).showSnackBar(
