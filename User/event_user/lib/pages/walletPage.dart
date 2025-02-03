@@ -29,7 +29,7 @@ class _WalletPageState extends State<WalletPage> {
   Future<void> _loadData() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      availableBalance = prefs.getDouble(_balanceKey) ?? 1000;
+      availableBalance = prefs.getDouble(_balanceKey) ?? 1100;
       transactionHistory =
           _parseTransactionHistory(prefs.getStringList(_transactionKey));
     });

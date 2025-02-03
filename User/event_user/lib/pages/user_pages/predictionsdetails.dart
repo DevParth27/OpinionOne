@@ -204,15 +204,25 @@ class _PredictionDetailsPageState extends State<PredictionDetailsPage> {
               ),
             ),
             const SizedBox(height: 20),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: BetButton(title: "Win", color: Colors.green),
+                  child: BetButton(
+                    title: "Yes",
+                    color: Colors.green,
+                    amountController: amountController,
+                    availableBalance: availableBalance,
+                  ),
                 ),
-                SizedBox(width: 15),
+                const SizedBox(width: 15),
                 Expanded(
-                  child: BetButton(title: "Loss", color: Colors.red),
+                  child: BetButton(
+                    title: "No",
+                    color: Colors.red,
+                    amountController: amountController,
+                    availableBalance: availableBalance,
+                  ),
                 ),
               ],
             ),
@@ -226,35 +236,54 @@ class _PredictionDetailsPageState extends State<PredictionDetailsPage> {
 class BetButton extends StatelessWidget {
   final String title;
   final Color color;
+  final TextEditingController amountController;
+  final double availableBalance;
 
-  const BetButton({super.key, required this.title, required this.color});
+  const BetButton({
+    super.key,
+    required this.title,
+    required this.color,
+    required this.amountController,
+    required this.availableBalance,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 5,
-      ),
-      onPressed: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Bet placed on $title"),
-            duration: const Duration(seconds: 2),
-            backgroundColor: color,
+    return ValueListenableBuilder<TextEditingValue>(
+      valueListenable: amountController,
+      builder: (context, value, child) {
+        double betAmount = double.tryParse(value.text) ?? 0;
+        bool isDisabled = betAmount <= 0 || betAmount > availableBalance;
+
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: isDisabled ? Colors.grey : color,
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            elevation: isDisabled ? 0 : 5,
+          ),
+          onPressed: isDisabled
+              ? null
+              : () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Bet placed on $title"),
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: color,
+                    ),
+                  );
+                },
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         );
       },
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
     );
   }
 }

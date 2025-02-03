@@ -27,8 +27,8 @@ class _CheckPaymentState extends State<CheckPayment> {
 
   void openRazorpay() {
     var options = {
-      'key': 'rzp_live_pcmYlabTUmbRnV', // Replace with your Razorpay API Key
-      'amount': 1000, // Amount in paise (10000 paise = 100 INR)
+      'key': 'rzp_live_pcmYlabTUmbRnV',
+      'amount': 100 * 100, // Amount in paise (10000 paise = 100 INR)
       'name': 'Bartr',
       'description': 'Payment for Order!',
       'prefill': {
@@ -68,6 +68,9 @@ class _CheckPaymentState extends State<CheckPayment> {
 
     // Update Firestore with payment details
     await _updatePaymentStatus(userEmail, response.paymentId!);
+
+    // Navigate to the homepage
+    Navigator.pushReplacementNamed(context, '/home');
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -75,6 +78,9 @@ class _CheckPaymentState extends State<CheckPayment> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Payment Failed: ${response.message}")),
     );
+
+    // Stay on the payment page
+    // No navigation logic here
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
