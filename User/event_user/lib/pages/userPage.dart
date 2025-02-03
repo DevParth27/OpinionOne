@@ -45,6 +45,11 @@ class _UserPageState extends State<UserPage> {
     Size size = MediaQuery.of(context).size;
     return PopScope(
       canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          Navigator.of(context).pop();
+        }
+      },
       child: Scaffold(
         backgroundColor: Colors.grey[900],
         appBar: AppBar(

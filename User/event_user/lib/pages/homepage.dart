@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:event_user/auth/checkPayment.dart';
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:event_user/models/predictions.dart';
 import 'package:event_user/pages/UserPage.dart';
 import 'package:event_user/pages/user_pages/development.dart';
 import 'package:event_user/pages/user_pages/predictionsdetails.dart';
 import 'package:event_user/pages/walletPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   bool _isSearching = false;
+
   final TextEditingController _searchController = TextEditingController();
   var currentIndex = 0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,45 +29,83 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _checkFirstTime();
-    _checkPaymentStatus();
+    // _checkPaymentStatus();
+    _listenToPaymentStatus();
   }
 
-  Future<void> _checkPaymentStatus() async {
-    // Get the current user
-    User? user = _auth.currentUser;
-    if (user == null) {
-      // If the user is not logged in, redirect to login page or handle accordingly
-      return;
-    }
+  @override
+  void dispose() {
+    _paymentSubscription?.cancel(); // Stop listening when the widget is removed
+    super.dispose();
+  }
 
-    // Fetch the payment status from Firestore
-    QuerySnapshot paymentSnapshot = await _firestore
+  StreamSubscription? _paymentSubscription;
+  void _listenToPaymentStatus() {
+    User? user = _auth.currentUser;
+    if (user == null) return;
+
+    _paymentSubscription = _firestore
         .collection('payments')
         .where('userEmail', isEqualTo: user.email)
         .orderBy('timestamp', descending: true)
         .limit(1)
-        .get();
+        .snapshots()
+        .listen((paymentSnapshot) {
+      if (paymentSnapshot.docs.isNotEmpty) {
+        String paymentStatus = paymentSnapshot.docs.first['paymentDone'];
 
-    if (paymentSnapshot.docs.isNotEmpty) {
-      // Check the latest payment status
-      String paymentStatus = paymentSnapshot.docs.first['paymentDone'];
-      if (paymentStatus == 'no') {
-        // Redirect to the payment page if payment is not done
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const CheckPayment()),
-          );
-        });
+        if (paymentStatus == 'yes' &&
+            ModalRoute.of(context)?.settings.name != "/home") {
+          // Redirect to HomePage only if not already there
+          Navigator.of(context).pushReplacementNamed('/home');
+        } else if (paymentStatus == 'no' &&
+            ModalRoute.of(context)?.settings.name != "/checkPayment") {
+          // Redirect to payment page if payment is not done
+          Navigator.of(context).pushReplacementNamed('/checkPayment');
+        }
+      } else {
+        // No payment record exists, assume payment is not done
+        if (ModalRoute.of(context)?.settings.name != "/checkPayment") {
+          Navigator.of(context).pushReplacementNamed('/checkPayment');
+        }
       }
-    } else {
-      // If no payment record exists, assume payment is not done
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const CheckPayment()),
-        );
-      });
-    }
+    });
   }
+
+  // Future<void> _checkPaymentStatus() async {
+  //   User? user = _auth.currentUser;
+  //   if (user == null) return; // Ensure user is logged in
+
+  //   QuerySnapshot paymentSnapshot = await _firestore
+  //       .collection('payments')
+  //       .where('userEmail', isEqualTo: user.email)
+  //       .orderBy('timestamp', descending: true)
+  //       .limit(1)
+  //       .get();
+
+  //   if (paymentSnapshot.docs.isNotEmpty) {
+  //     String paymentStatus = paymentSnapshot.docs.first['paymentDone'];
+
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       if (paymentStatus == 'yes' &&
+  //           ModalRoute.of(context)?.settings.name != "/home") {
+  //         // Redirect to HomePage only if not already there
+  //         Navigator.of(context).pushReplacementNamed('/home');
+  //       } else if (paymentStatus == 'no' &&
+  //           ModalRoute.of(context)?.settings.name != "/checkPayment") {
+  //         // Redirect to payment page if payment is not done
+  //         Navigator.of(context).pushReplacementNamed('/checkPayment');
+  //       }
+  //     });
+  //   } else {
+  //     // No payment record exists, assume payment is not done
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       if (ModalRoute.of(context)?.settings.name != "/checkPayment") {
+  //         Navigator.of(context).pushReplacementNamed('/checkPayment');
+  //       }
+  //     });
+  //   }
+  // }
 
   Future<void> _checkFirstTime() async {
     final prefs = await SharedPreferences.getInstance();
@@ -112,157 +151,159 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: Colors.grey[900],
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(225.0),
-          child: AppBar(
-            toolbarHeight: 225,
-            automaticallyImplyLeading: false,
-            title: Column(
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(width: 5),
-                    // Conditionally show the title or search bar
-                    if (!_isSearching)
-                      const Text(
-                        'Bartr Opinion',
-                        style: TextStyle(
-                          fontSize: 29,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal,
-                        ),
+    return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(225.0),
+        child: AppBar(
+          toolbarHeight: 225,
+          automaticallyImplyLeading: false,
+          title: Column(
+            children: [
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  // Conditionally show the title or search bar
+                  if (!_isSearching)
+                    const Text(
+                      'Bartr Opinion',
+                      style: TextStyle(
+                        fontSize: 29,
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
                       ),
-                    if (_isSearching)
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: TextField(
-                            controller: _searchController,
-                            decoration: const InputDecoration(
-                              hintText: 'Search...',
-                              hintStyle: TextStyle(color: Colors.white70),
-                              border: InputBorder.none,
-                            ),
-                            style: const TextStyle(color: Colors.white),
-                            autofocus: true,
-                            onSubmitted: (query) {
-                              // Handle search submission
-                              setState(() {
-                                _isSearching = false;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    const Spacer(),
-                    if (!_isSearching)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _isSearching = true;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.transparent,
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(2.0),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    if (_isSearching)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _isSearching = false;
-                            _searchController.clear();
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.transparent,
-                          ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(2.0),
-                            child: Icon(
-                              Icons.cancel,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                        ),
-                      ),
-                    const SizedBox(width: 10),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.transparent,
-                      ),
+                    ),
+                  if (_isSearching)
+                    Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: IconButton(
-                          icon: const Icon(Icons.notifications,
-                              color: Colors.white),
-                          onPressed: () {
-                            // Add your notifications functionality here
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: const InputDecoration(
+                            hintText: 'Search...',
+                            hintStyle: TextStyle(color: Colors.white70),
+                            border: InputBorder.none,
+                          ),
+                          style: const TextStyle(color: Colors.white),
+                          autofocus: true,
+                          onSubmitted: (query) {
+                            // Handle search submission
+                            setState(() {
+                              _isSearching = false;
+                            });
                           },
-                          iconSize: 30,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 2),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 100,
-                  child:
-                      HorizontalCalendar(), // Assuming HorizontalCalendar is defined elsewhere
-                ),
-                const SizedBox(height: 11),
-                const Row(
-                  children: [
-                    SizedBox(width: 13),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Ongoing Predictions',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.w100,
+                  const Spacer(),
+                  if (!_isSearching)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSearching = true;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.transparent,
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.white,
+                            size: 30,
+                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                Divider(
-                  height: 2,
-                  thickness: 1,
-                  color: Colors.grey[400],
-                  indent: 10,
-                  endIndent: 10,
-                ),
-              ],
-            ),
-            backgroundColor: Colors.grey[900],
-            elevation: 0,
+                  if (_isSearching)
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _isSearching = false;
+                          _searchController.clear();
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.transparent,
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(2.0),
+                          child: Icon(
+                            Icons.cancel,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    ),
+                  const SizedBox(width: 10),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      color: Colors.transparent,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: IconButton(
+                        icon: const Icon(Icons.notifications,
+                            color: Colors.white),
+                        onPressed: () {
+                          // Add your notifications functionality here
+                        },
+                        iconSize: 30,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 2),
+                ],
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 100,
+                child:
+                    HorizontalCalendar(), // Assuming HorizontalCalendar is defined elsewhere
+              ),
+              const SizedBox(height: 11),
+              const Row(
+                children: [
+                  SizedBox(width: 13),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Ongoing Predictions',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              Divider(
+                height: 2,
+                thickness: 1,
+                color: Colors.grey[400],
+                indent: 10,
+                endIndent: 10,
+              ),
+            ],
           ),
+          backgroundColor: Colors.grey[900],
+          elevation: 0,
         ),
-        body: SingleChildScrollView(
+      ),
+      body: DoubleBackToCloseApp(
+        snackBar: const SnackBar(
+          content: Text('Tap back again to leave'),
+        ),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(
@@ -539,103 +580,102 @@ class HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-          margin: const EdgeInsets.all(20),
-          height: size.width * .155,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05), // Adjust opacity here
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(.15),
-                blurRadius: 30,
-                offset: const Offset(0, 10),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: ListView.builder(
-            itemCount: 4,
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: size.width * .024),
-            itemBuilder: (context, index) => InkWell(
-              onTap: () {
-                if (index == 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
-                } else {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                }
-                if (index == 1) {
-                  // Check if the settings icon is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WalletPage()),
-                  );
-                } else {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                }
-                if (index == 2) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const UnderDevelopmentPage()),
-                  );
-                } else {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                }
-                if (index == 3) {
-                  // Check if the settings icon is clicked
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const UserPage()),
-                  );
-                } else {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                }
-              },
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 1500),
-                    curve: Curves.fastLinearToSlowEaseIn,
-                    margin: EdgeInsets.only(
-                      bottom: index == currentIndex ? 0 : size.width * .029,
-                      right: size.width * .0422,
-                      left: size.width * .0422,
-                    ),
-                    width: size.width * .128,
-                    height: index == currentIndex ? size.width * .014 : 0,
-                    decoration: BoxDecoration(
-                      color:
-                          Colors.white.withOpacity(0.5), // Adjust opacity here
-                      borderRadius: const BorderRadius.vertical(
-                        bottom: Radius.circular(10),
-                      ),
+      ),
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(20),
+        height: size.width * .155,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05), // Adjust opacity here
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(.15),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: ListView.builder(
+          itemCount: 4,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: size.width * .024),
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 1) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WalletPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UnderDevelopmentPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+              if (index == 3) {
+                // Check if the settings icon is clicked
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserPage()),
+                );
+              } else {
+                setState(() {
+                  currentIndex = index;
+                });
+              }
+            },
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 1500),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  margin: EdgeInsets.only(
+                    bottom: index == currentIndex ? 0 : size.width * .029,
+                    right: size.width * .0422,
+                    left: size.width * .0422,
+                  ),
+                  width: size.width * .128,
+                  height: index == currentIndex ? size.width * .014 : 0,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5), // Adjust opacity here
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(10),
                     ),
                   ),
-                  Icon(
-                    listOfIcons[index],
-                    size: size.width * .076,
-                    color: index == currentIndex
-                        ? Colors.white
-                        : const Color.fromARGB(95, 137, 133, 133),
-                  ),
-                  SizedBox(height: size.width * .03),
-                ],
-              ),
+                ),
+                Icon(
+                  listOfIcons[index],
+                  size: size.width * .076,
+                  color: index == currentIndex
+                      ? Colors.white
+                      : const Color.fromARGB(95, 137, 133, 133),
+                ),
+                SizedBox(height: size.width * .03),
+              ],
             ),
           ),
         ),
@@ -696,7 +736,7 @@ class DateTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(10), // Circular shape
             ),
             child: Text(
-              _getDayName(date.weekday), // Display day name
+              getDayName(date.weekday), // Display day name
               style: TextStyle(
                 color: Colors.grey[400], // Day name color
                 fontWeight: FontWeight.bold,
@@ -725,7 +765,7 @@ class DateTile extends StatelessWidget {
     );
   }
 
-  String _getDayName(int weekday) {
+  String getDayName(int weekday) {
     switch (weekday) {
       case DateTime.monday:
         return 'MON';

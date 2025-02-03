@@ -58,7 +58,7 @@ class _PredictionDetailsPageState extends State<PredictionDetailsPage> {
           'Prediction Details',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFF1E1E1E),
+        backgroundColor: const Color.fromARGB(255, 168, 166, 166),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -204,9 +204,9 @@ class _PredictionDetailsPageState extends State<PredictionDetailsPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Expanded(
                   child: BetButton(title: "Win", color: Colors.green),
                 ),

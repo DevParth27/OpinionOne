@@ -94,7 +94,10 @@ class _CheckPaymentState extends State<CheckPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Check Payment')),
+      appBar: AppBar(
+        title: const Text('Check Payment'),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
         child: ElevatedButton(
           onPressed: openRazorpay,

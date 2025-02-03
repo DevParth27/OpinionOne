@@ -1,3 +1,4 @@
+import 'package:event_user/auth/checkPayment.dart';
 import 'package:event_user/auth/login_user.dart';
 import 'package:event_user/auth/register_user.dart';
 import 'package:event_user/intro/splashScreem.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => const OnBoardingScreen(),
         '/login': (context) => const LoginPage(),
+        '/checkPayment': (context) => const CheckPayment(),
         '/waitlist': (context) => const WaitlistPage(),
         'splash': (context) => const Splash(),
         '/register': (context) => const RegisterPage(),
