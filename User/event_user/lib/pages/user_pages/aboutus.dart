@@ -20,7 +20,7 @@ class AboutUsPage extends StatelessWidget {
             _buildSectionTitle('About Us'),
             const SizedBox(height: 10.0),
             _buildDescriptionText(
-              'At Bartar Catalyst Group (BCG), we empower startups and established companies by offering tailored consulting and strategic solutions. From startup incubations to corporate growth strategies, we are your trusted partner in navigating the complexities of modern business.',
+              'At Bartr Catalyst Group (BCG), we empower startups and established companies by offering tailored consulting and strategic solutions. From startup incubations to corporate growth strategies, we are your trusted partner in navigating the complexities of modern business.',
             ),
             const SizedBox(height: 30.0),
             _buildSectionTitle('Contact Us'),
@@ -110,7 +110,7 @@ class AboutUsPage extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.email, color: Colors.white),
           title: Text(
-            'Email: support@bartrOpinion.com',
+            'Email: inrcommunication@gmail.com',
             style: TextStyle(color: Colors.grey[300]),
           ),
           onTap: () {
@@ -120,7 +120,7 @@ class AboutUsPage extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.phone, color: Colors.white),
           title: Text(
-            'Phone: +91 9511827732',
+            'Phone: +91 8468995302',
             style: TextStyle(color: Colors.grey[300]),
           ),
           onTap: () {

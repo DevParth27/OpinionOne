@@ -318,21 +318,20 @@ class HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                           builder: (context) => const PredictionDetailsPage(
                             description:
-                                "Will Rohit Sharma score a half-century in the 1st innings of the 5th Test between India and England?",
-                            endDate: "05/02/2025",
+                                "Will Bumrah take two or more wickets ?",
+                            endDate: "06/02/2025",
                             participants: 1468,
-                            price: "3x",
+                            price: "1.2x",
                           ),
                         ),
                       );
                     },
                     child: const PredictionCard(
                       title: "Cricket Prediction",
-                      description:
-                          "Will Rohit Sharma score a half-century in the 1st innings of the 5th Test between India and England?",
-                      endDate: "05/02/2025",
+                      description: "Will Bumrah take two or more wickets ?",
+                      endDate: "06/02/2025",
                       participants: '1468 traders',
-                      price: "2x",
+                      price: "1.2x",
                     ),
                   ),
                   GestureDetector(
@@ -341,9 +340,8 @@ class HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will Jasprit Bumrah take 5 or more wickets in the 5th Test between India and England?",
-                            endDate: "05/02/2025",
+                            description: "Will rohit score more than 100?",
+                            endDate: "06/02/2025",
                             participants: 1197,
                             price: "1.5x",
                           ),
@@ -352,11 +350,10 @@ class HomePageState extends State<HomePage> {
                     },
                     child: const PredictionCard(
                       title: "Cricket Prediction",
-                      description:
-                          "Will Jasprit Bumrah take 5 or more wickets in the 5th Test between India and England?",
-                      endDate: "05/02/2025",
+                      description: "Will rohit score more than 100?",
+                      endDate: "06/02/2025",
                       participants: '1197 traders',
-                      price: "5x",
+                      price: "1.5x",
                     ),
                   ),
                   GestureDetector(
@@ -365,9 +362,8 @@ class HomePageState extends State<HomePage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will Joe Root score a century in the 5th Test between India and England?",
-                            endDate: "05/02/2025",
+                            description: "Will rohit score more than 50?",
+                            endDate: "06/02/2025",
                             participants: 920,
                             price: "1.4x",
                           ),
@@ -376,11 +372,10 @@ class HomePageState extends State<HomePage> {
                     },
                     child: const PredictionCard(
                       title: "Cricket Prediction",
-                      description:
-                          "Will Joe Root score a century in the 5th Test between India and England?",
-                      endDate: "05/02/2025",
+                      description: "Will rohit score more than 50?",
+                      endDate: "06/02/2025",
                       participants: '920 traders',
-                      price: "2.3x",
+                      price: "1.4",
                     ),
                   ),
                   GestureDetector(
@@ -390,10 +385,10 @@ class HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                           builder: (context) => const PredictionDetailsPage(
                             description:
-                                "Will Ravichandran Ashwin take 10 or more wickets in the 5th Test between India and England?",
-                            endDate: "05/02/2025",
-                            participants: 850,
-                            price: "1.8x",
+                                "Will any of the England batsman score century?",
+                            endDate: "06/02/2025",
+                            participants: 550,
+                            price: "1.4x",
                           ),
                         ),
                       );
@@ -401,10 +396,10 @@ class HomePageState extends State<HomePage> {
                     child: const PredictionCard(
                       title: "Cricket Prediction",
                       description:
-                          "Will Ravichandran Ashwin take 10 or more wickets in the 5th Test between India and England?",
-                      endDate: "05/02/2025",
-                      participants: '850 traders',
-                      price: "2x",
+                          "Will any of the England batsman score century?",
+                      endDate: "06/02/2025",
+                      participants: '550 traders',
+                      price: "1.4x",
                     ),
                   ),
                   GestureDetector(
@@ -414,10 +409,10 @@ class HomePageState extends State<HomePage> {
                         MaterialPageRoute(
                           builder: (context) => const PredictionDetailsPage(
                             description:
-                                "Will India win the 5th Test against England by an innings margin?",
-                            endDate: "05/02/2025",
-                            participants: 1100,
-                            price: "1.2x",
+                                "Will Spinners contribute more than a fast bowler by taking maximum wickets ?",
+                            endDate: "06/02/2025",
+                            participants: 112,
+                            price: "1.4x",
                           ),
                         ),
                       );
@@ -425,156 +420,205 @@ class HomePageState extends State<HomePage> {
                     child: const PredictionCard(
                       title: "Cricket Prediction",
                       description:
-                          "Will India win the 5th Test against England by an innings margin?",
-                      endDate: "05/02/2025",
-                      participants: '1100 traders',
-                      price: "1.3x",
+                          "Will any of the England batsman score century?",
+                      endDate: "06/02/2025",
+                      participants: '112 traders',
+                      price: "1.4x",
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will Ben Stokes hit 6 or more sixes in the 5th Test between India and England?",
-                            endDate: "05/02/2025",
-                            participants: 780,
-                            price: "1.9x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will Ben Stokes hit 6 or more sixes in the 5th Test between India and England?",
-                      endDate: "05/02/2025",
-                      participants: '780 traders',
-                      price: "2.4x",
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will Virat Kohli score a double century in the 5th Test between India and England?",
-                            endDate: "05/02/2025",
-                            participants: 950,
-                            price: "1.3x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will Virat Kohli score a double century in the 5th Test between India and England?",
-                      endDate: "05/02/2025",
-                      participants: '950 traders',
-                      price: "2.2x",
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will England's openers score a 100+ partnership in the 1st innings of the 5th Test?",
-                            endDate: "05/02/2025",
-                            participants: 670,
-                            price: "3.2x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will England's openers score a 100+ partnership in the 1st innings of the 5th Test?",
-                      endDate: "05/02/2025",
-                      participants: '670 traders',
-                      price: "2.1x",
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will India's top 3 batsmen score 200+ runs collectively in the 1st innings of the 5th Test?",
-                            endDate: "05/02/2025",
-                            participants: 720,
-                            price: "2x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will India's top 3 batsmen score 200+ runs collectively in the 1st innings of the 5th Test?",
-                      endDate: "05/02/2025",
-                      participants: '720 traders',
-                      price: "2.2x",
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will James Anderson take 4 or more wickets in the 1st innings of the 5th Test?",
-                            endDate: "05/02/2025",
-                            participants: 640,
-                            price: "1.2x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will James Anderson take 4 or more wickets in the 1st innings of the 5th Test?",
-                      endDate: "05/02/2025",
-                      participants: '640 traders',
-                      price: "1x",
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PredictionDetailsPage(
-                            description:
-                                "Will Rishabh Pant hit 3 or more sixes in the 1st innings of the 5th Test?",
-                            endDate: "05/02/2025",
-                            participants: 580,
-                            price: "3.2x",
-                          ),
-                        ),
-                      );
-                    },
-                    child: const PredictionCard(
-                      title: "Cricket Prediction",
-                      description:
-                          "Will Rishabh Pant hit 3 or more sixes in the 1st innings of the 5th Test?",
-                      endDate: "05/02/2025",
-                      participants: '580 traders',
-                      price: "1.2x",
-                    ),
-                  ),
+
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will Ravichandran Ashwin take 10 or more wickets in the 5th Test between India and England?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 850,
+                  //           price: "1.8x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will Ravichandran Ashwin take 10 or more wickets in the 5th Test between India and England?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '850 traders',
+                  //     price: "2x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will India win the 5th Test against England by an innings margin?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 1100,
+                  //           price: "1.2x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will India win the 5th Test against England by an innings margin?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '1100 traders',
+                  //     price: "1.3x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will Ben Stokes hit 6 or more sixes in the 5th Test between India and England?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 780,
+                  //           price: "1.9x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will Ben Stokes hit 6 or more sixes in the 5th Test between India and England?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '780 traders',
+                  //     price: "2.4x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will Virat Kohli score a double century in the 5th Test between India and England?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 950,
+                  //           price: "1.3x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will Virat Kohli score a double century in the 5th Test between India and England?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '950 traders',
+                  //     price: "2.2x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will England's openers score a 100+ partnership in the 1st innings of the 5th Test?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 670,
+                  //           price: "3.2x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will England's openers score a 100+ partnership in the 1st innings of the 5th Test?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '670 traders',
+                  //     price: "2.1x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will India's top 3 batsmen score 200+ runs collectively in the 1st innings of the 5th Test?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 720,
+                  //           price: "2x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will India's top 3 batsmen score 200+ runs collectively in the 1st innings of the 5th Test?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '720 traders',
+                  //     price: "2.2x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will James Anderson take 4 or more wickets in the 1st innings of the 5th Test?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 640,
+                  //           price: "1.2x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will James Anderson take 4 or more wickets in the 1st innings of the 5th Test?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '640 traders',
+                  //     price: "1x",
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const PredictionDetailsPage(
+                  //           description:
+                  //               "Will Rishabh Pant hit 3 or more sixes in the 1st innings of the 5th Test?",
+                  //           endDate: "05/02/2025",
+                  //           participants: 580,
+                  //           price: "3.2x",
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   child: const PredictionCard(
+                  //     title: "Cricket Prediction",
+                  //     description:
+                  //         "Will Rishabh Pant hit 3 or more sixes in the 1st innings of the 5th Test?",
+                  //     endDate: "05/02/2025",
+                  //     participants: '580 traders',
+                  //     price: "1.2x",
+                  //   ),
+                  // ),
                 ],
               ),
             ],
